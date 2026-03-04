@@ -22,24 +22,13 @@ Token is money. Every prompt you send to GPT/Claude/Gemini, you pay by token. I-
 **Output:** `[LIST:@LOCAL|mch="*.md"]=>[Π:READ]=>[Σ|len=3]=>[Ω]`
 **Saved:** 65%
 
-## Give your AI eyes
-
-Your AI can read any webpage:
-
-```
-i.ilang.ai/https://any-url
-```
-
-Paste this into any AI conversation. It returns clean Markdown. Free. No API key.
-
 ## Links
 
 - Homepage: https://ilang.ai
-- AI See: https://i.ilang.ai
 - Dictionary: https://github.com/ilang-ai/ilang-dict
 
 ## Author
 
 Built by ilang-ai from China. I-Lang is open source under MIT license.
 
-I-Lang v2.0 | Born secure.
+I-Lang v2.0

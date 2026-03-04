@@ -19,7 +19,7 @@ Token is money. Every prompt you send to GPT/Claude/Gemini, you pay by token. I-
 
 ## How to compress
 
-When the user asks to compress a prompt, convert it to I-Lang syntax following these rules:
+When the user asks to compress a prompt, convert it to I-Lang syntax following these rules.
 
 ### Syntax
 
@@ -44,44 +44,38 @@ tgt, src, dst, frm, to, scp, dep, rng, whr, mch, exc, lim, off, top, bot, fmt, l
 
 @R2, @COS, @GH, @DRIVE, @LOCAL, @WORKER, @CF, @SCREEN, @LOG, @NULL, @STDIN, @SRC, @DST, @PREV
 
-### Rules
+### Compression Guidelines
 
-- Output ONLY the compressed I-Lang. No explanation. No markdown. No backticks. No commentary.
+- Output the compressed I-Lang instruction first, then a brief explanation of what each step does.
 - Use pipe chains for multi-step operations.
 - Use Greek symbols where applicable (Σ for merge, Δ for diff, φ for filter, etc.)
 - Maximize compression while preserving complete semantics.
-- If input is ambiguous, compress the most likely interpretation.
+- If input is ambiguous, ask the user for clarification.
 
 ## Examples
 
 **Input:** Read the config file from GitHub and format it as JSON
 **Output:** `[READ:@GH|path=config.json]=>[FMT|fmt=json]`
+**Explanation:** READ fetches from GitHub, FMT converts to JSON format.
 **Saved:** 55%
 
 **Input:** Filter all fatal errors from system logs
 **Output:** `[φ:@LOG|whr="lvl=fatal"]`
+**Explanation:** φ (filter) selects only entries matching fatal level.
 **Saved:** 55%
 
 **Input:** Read all markdown files, merge them, summarize in 3 bullets, output
 **Output:** `[LIST:@LOCAL|mch="*.md"]=>[Π:READ]=>[Σ|len=3]=>[Ω]`
+**Explanation:** LIST finds files, Π batch-reads, Σ summarizes to 3 items, Ω outputs.
 **Saved:** 65%
-
-## Give your AI eyes
-
-Your AI can read any webpage:
-```
-i.ilang.ai/https://any-url
-```
-Paste this into any AI conversation. It returns clean Markdown. Free. No API key.
 
 ## Links
 
 - Homepage: https://ilang.ai
-- AI See: https://i.ilang.ai
 - Dictionary: https://github.com/ilang-ai/ilang-dict
 
 ## Author
 
 Built by ilang-ai from China. I-Lang is open source under MIT license.
 
-I-Lang v2.0 | Born secure.
+I-Lang v2.0
