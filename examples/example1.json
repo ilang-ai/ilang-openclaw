@@ -1,0 +1,5 @@
+{
+  "input": "Read the config file from GitHub and format it as JSON",
+  "output": "[READ:@GH|path=config.json]=>[FMT|fmt=json]",
+  "saved": "55%"
+}

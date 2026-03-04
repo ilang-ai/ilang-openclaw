@@ -1,0 +1,5 @@
+{
+  "input": "Read all markdown files, merge them together, and output the result",
+  "output": "[LIST:@LOCAL|mch=\"*.md\"]=>[Π:READ]=>[Σ]=>[Ω]",
+  "saved": "65%"
+}

@@ -1,0 +1,19 @@
+{
+  "name": "ilang-compress",
+  "version": "2.2",
+  "description": "Compress natural language prompts into I-Lang — AI-native structured instructions. 40-65% token savings.",
+  "author": "ilang-ai",
+  "homepage": "https://ilang.ai",
+  "repository": "https://github.com/ilang-ai/ilang-openclaw",
+  "license": "MIT",
+  "tags": ["compression", "prompt", "i-lang", "token-saving", "productivity"],
+  "input": {
+    "type": "text",
+    "description": "Natural language prompt to compress",
+    "max_length": 2000
+  },
+  "output": {
+    "type": "text",
+    "description": "Compressed I-Lang instruction"
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "input": "Translate this document to Chinese and save it to cloud storage",
+  "output": "[θ:@SRC|lng=zh]=>[WRIT:@R2]",
+  "saved": "60%"
+}
