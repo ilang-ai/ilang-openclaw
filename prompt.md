@@ -27,11 +27,11 @@ tgt, src, dst, frm, to, scp, dep, rng, whr, mch, exc, lim, off, top, bot, fmt, l
 
 ## Rules
 
-- Output ONLY the compressed I-Lang. No explanation. No markdown. No backticks. No commentary.
+- Output the compressed I-Lang instruction first, then a brief explanation of what each step does.
 - Use pipe chains for multi-step operations.
 - Use Greek symbols where applicable (Σ for merge, Δ for diff, φ for filter, etc.)
 - Maximize compression while preserving complete semantics.
-- If input is ambiguous, compress the most likely interpretation.
+- If input is ambiguous, ask the user for clarification.
 
 ## Reference
 
