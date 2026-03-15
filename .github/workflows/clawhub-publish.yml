@@ -1,0 +1,68 @@
+name: Publish Skills to ClawHub
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*/SKILL.md'
+      - '*/prompt.md'
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 2
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install ClawHub CLI
+        run: npm install -g clawhub@latest
+
+      - name: Login to ClawHub
+        run: clawhub login --token "${{ secrets.CLAWHUB_TOKEN }}"
+
+      - name: Detect changed skills and publish
+        run: |
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD)
+          PUBLISHED=""
+
+          for dir in */; do
+            dir_name="${dir%/}"
+            # Skip non-skill directories
+            [ ! -f "$dir_name/SKILL.md" ] && continue
+
+            # Check if this skill has changes
+            if echo "$CHANGED_FILES" | grep -q "^$dir_name/"; then
+              echo ">>> Changes detected in $dir_name, publishing..."
+
+              # Extract version from SKILL.md
+              VERSION=$(grep '^version:' "$dir_name/SKILL.md" | head -1 | awk '{print $2}' | tr -d '"' | tr -d "'")
+              NAME=$(grep '^name:' "$dir_name/SKILL.md" | head -1 | awk '{print $2}' | tr -d '"' | tr -d "'")
+
+              if [ -z "$VERSION" ]; then
+                echo ">>> No version found in $dir_name/SKILL.md, skipping"
+                continue
+              fi
+
+              cd "$dir_name"
+              clawhub publish . \
+                --slug "$NAME" \
+                --name "$NAME" \
+                --version "$VERSION" \
+                --changelog "Auto-published from GitHub commit ${{ github.sha }}" \
+                || echo ">>> Failed to publish $dir_name (version may already exist)"
+              cd ..
+
+              PUBLISHED="$PUBLISHED $dir_name@$VERSION"
+            fi
+          done
+
+          if [ -z "$PUBLISHED" ]; then
+            echo ">>> No skill changes detected, nothing to publish"
+          else
+            echo ">>> Published:$PUBLISHED"
+          fi
