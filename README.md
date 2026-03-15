@@ -1,34 +1,29 @@
-# I-Lang Compress
+# I-Lang OpenClaw Skills
 
-An AI-native prompt compression protocol created by a Chinese developer.
+Official I-Lang skills for OpenClaw and ClawHub.
 
-Compress natural language prompts into dense structured instructions that any AI understands natively. 40-65% token savings, zero training needed.
+`[PROTOCOL:human-AI|compress=40-65%,compat=all-LLM]=>[ANSWER_ALL]=>[OUT]`
 
-## Why I-Lang
+## Skills
 
-Token is money. Every prompt you send to GPT/Claude/Gemini, you pay by token. I-Lang compresses your instructions into a fraction of the original size — AI reads it just as well, you pay less.
+| Skill | Description | ClawHub |
+|-------|-------------|---------|
+| **everything-is-ok** | 无所不能 — Make any AI work better. Compress, complete answers, finished deliverables. | [Install](https://clawhub.ai/ilang-ai/everything-is-ok) |
+| **ilang-compress** | Original I-Lang compression skill. Translate prompts into I-Lang syntax. | [Install](https://clawhub.ai/adsorgcn/ilang-compress) |
 
-## Examples
+## Quick Start
 
-**Input:** Read the config file from GitHub and format it as JSON
-**Output:** `[READ:@GH|path=config.json]=>[FMT|fmt=json]`
-**Saved:** 55%
+No installation needed. Copy the protocol header from `everything-is-ok/prompt.md`, paste into any AI conversation. Done.
 
-**Input:** Filter all fatal errors from system logs
-**Output:** `[φ:@LOG|whr="lvl=fatal"]`
-**Saved:** 55%
-
-**Input:** Read all markdown files, merge them, summarize in 3 bullets, output
-**Output:** `[LIST:@LOCAL|mch="*.md"]=>[Π:READ]=>[Σ|len=3]=>[Ω]`
-**Saved:** 65%
+ChatGPT ✅ · Claude ✅ · Gemini ✅ · DeepSeek ✅ · Kimi ✅ · 豆包 ✅ · 元宝 ✅
 
 ## Links
 
-- Homepage: https://ilang.ai
-- Dictionary: https://github.com/ilang-ai/ilang-dict
+- [ilang.ai](https://ilang.ai) — Protocol & tools
+- [research.ilang.ai](https://research.ilang.ai) — Papers
+- [i.ilang.ai](https://i.ilang.ai) — AI See
+- [github.com/ilang-ai/ilang-dict](https://github.com/ilang-ai/ilang-dict) — Dictionary
 
-## Author
+## License
 
-Built by ilang-ai from China. I-Lang is open source under MIT license.
-
-I-Lang v2.0
+MIT · © 2026 I-Lang Research, Eastsoft Inc., Canada.
