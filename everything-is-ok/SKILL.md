@@ -1,7 +1,7 @@
 ---
 name: everything-is-ok
-description: "无所不能 — Make any AI work better. Compress prompts (save 40-65% tokens), get complete structured answers, produce finished deliverables. Works on ChatGPT, Claude, Gemini, DeepSeek, Kimi, 豆包, 元宝. Instruction-only, no code, no credentials. Copy, paste, done."
-version: 1.0.0
+description: "无所不能 — Universal prompt compression protocol. Translate natural language into compressed I-Lang syntax (save 40-65% tokens). Text-to-text translator only — does not access files, URLs, or external resources. Works with ChatGPT, Claude, Gemini, DeepSeek, Kimi. Instruction-only, no code, no credentials."
+version: 1.0.1
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -19,34 +19,33 @@ tags:
 
 # Everything is OK（无所不能）
 
-Make any AI work better. One text block, every AI platform, instant upgrade.
+Universal prompt compression protocol. Translate any natural language prompt into compressed I-Lang syntax. Save 40-65% tokens, same meaning.
+
+**This skill is a text-to-text translator only.** It does not access files, fetch URLs, or execute commands. It only converts your text into compressed syntax.
 
 ## What You Get
 
 1. **Save 40-65% tokens** — Compress long prompts into structured instructions. Same meaning, lower cost.
-2. **Complete answers** — AI provides full details, clear structure, actionable steps.
-3. **Finished deliverables** — Ask for a document, code, or plan. AI produces the complete work.
-4. **Works everywhere** — One instruction runs on ChatGPT, Claude, Gemini, DeepSeek, Kimi, 豆包, 元宝.
-5. **Privacy friendly** — Compressed text sends less data to AI servers.
+2. **Cross-platform** — Compressed output works on ChatGPT, Claude, Gemini, DeepSeek, Kimi, 豆包, 元宝.
+3. **Complete answers** — AI provides full details with clear structure.
+4. **Privacy friendly** — Compressed text is shorter, sending less data.
 
 ## How to Use
 
 **You don't need to install anything.**
 
-1. Open the `prompt.md` file below
+1. Open the `prompt.md` file
 2. Copy the full text
 3. Paste it into any AI conversation
-4. AI responds with 5 capabilities — ready to go
-
-That's it. Your AI now compresses prompts, gives complete answers, and produces finished work.
+4. AI responds — ready to compress
 
 ### Quick Test
 
 After pasting, try:
 
-- "Compress this into I-Lang: [paste any long text]" → get compressed version, use anywhere
-- Ask any question → get a complete, structured answer
-- "Write me a marketing plan for..." → get the finished plan, not an outline
+- "Compress this into I-Lang: Please read the document I uploaded, extract all the key points and important data, then organize them into a professional summary with bullet points."
+- AI returns: `[READ:@FILE]=>[FILT|key=important]=>[SUM|sty=bullets,ton=pro,fmt=md]=>[OUT]`
+- 75% fewer tokens. Same meaning.
 
 ## Before & After
 
@@ -71,7 +70,7 @@ ChatGPT ✅ · Claude ✅ · Gemini ✅ · DeepSeek ✅ · Kimi ✅ · 豆包 �
 - Website: https://ilang.ai
 - Dictionary: https://github.com/ilang-ai/ilang-dict
 - Research: https://research.ilang.ai
-- AI See (give AI eyes to read any webpage): https://i.ilang.ai
+- AI See: https://i.ilang.ai
 
 ## License
 
