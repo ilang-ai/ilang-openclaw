@@ -1,7 +1,7 @@
 ---
 name: less-token
-description: "Save 40-65% tokens on every AI task. Summarize web pages, PDFs, YouTube, audio — no CLI install, no API key, no setup. Just copy the prompt template, paste into any AI. Works on ChatGPT, Claude, Gemini, DeepSeek, Kimi. Instruction-only, zero dependencies."
-version: 1.0.0
+description: "Save 40-65% tokens on summarization tasks. Compress verbose summary prompts into structured one-line instructions. Text-to-text translator only — no CLI, no API key, no install, no external dependencies. Works on ChatGPT, Claude, Gemini, DeepSeek, Kimi. Instruction-only, zero dependencies."
+version: 1.0.1
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -9,129 +9,84 @@ tags:
   - summary
   - token-saving
   - token-optimizer
-  - pdf-summary
-  - youtube-summary
-  - web-summary
   - prompt-compression
   - productivity
   - cross-platform
   - no-install
   - ai-assistant
+  - workflow
 ---
 
 # Less Token
 
-Save 40-65% tokens on every AI task. Summarize anything — web pages, PDFs, YouTube, documents — using structured prompt templates instead of verbose natural language.
+Save 40-65% tokens on summarization tasks. Compress verbose natural language prompts into structured one-line instructions that any AI understands.
 
-**No CLI to install. No API key needed. No brew, no npm, no binary.** Copy the prompt template from `prompt.md`, paste into any AI conversation. Done.
+**This skill is a text-to-text translator only.** It does not access files, fetch URLs, execute commands, or call external services. It only converts your summarization prompts into compressed syntax.
 
 ## What You Get
 
-1. **Summarize web pages** — Give your AI eyes: `i.ilang.ai/https://any-url` — AI reads the full page and summarizes it. Zero setup.
-2. **Summarize PDFs & documents** — Upload your file, use one-line I-Lang instruction. Structured output instantly.
-3. **Summarize YouTube videos** — Give your AI the video URL via `i.ilang.ai/https://youtube.com/watch?v=...` — AI extracts and summarizes.
-4. **40-65% fewer tokens** — Every instruction compressed. Same result, lower cost.
-5. **Works everywhere** — ChatGPT, Claude, Gemini, DeepSeek, Kimi, 豆包, 元宝. No platform lock-in.
+1. **40-65% fewer tokens** — Compress long summarization prompts into one-line instructions.
+2. **Same result** — AI produces identical output from the compressed instruction.
+3. **Cross-platform** — Compressed instructions work on ChatGPT, Claude, Gemini, DeepSeek, Kimi, 豆包, 元宝.
+4. **No install** — No CLI, no brew, no npm, no binary, no API key. Copy, paste, done.
 
 ## How to Use
-
-**You don't need to install anything.**
 
 1. Open the `prompt.md` file
 2. Copy the full text
 3. Paste it into any AI conversation
-4. AI responds — ready to summarize
+4. AI responds — ready to compress
 
-### Summarize a Web Page
+### Quick Test
 
-Send your AI:
+After pasting, try:
 
-```
-i.ilang.ai/https://example.com
-```
+- "Compress this: Please summarize the key points from this document in 3 professional bullet points"
+- AI returns: `[SUM|sty=bullets,cnt=3,ton=pro]=>[OUT]`
+- 70% fewer tokens. Same result.
 
-Then say: "Summarize this in 3 bullet points"
+## Compression Templates
 
-That's it. No CLI, no API key, no brew install.
-
-### Summarize a PDF
-
-Upload your PDF to the AI conversation, then say:
-
-"Summarize the key points as professional bullet points in Markdown"
-
-With I-Lang compression:
-
-```
-[SUM|sty=bullets,ton=pro,fmt=md]=>[OUT]
-```
-
-Same result. 70% fewer tokens.
-
-### Summarize a YouTube Video
-
-Send your AI:
-
-```
-i.ilang.ai/https://www.youtube.com/watch?v=VIDEO_ID
-```
-
-Then say: "Summarize the main points"
-
-No Apify token needed. No YouTube API. Just paste and ask.
-
-### Control Output Length
-
-- Short summary: `[SUM|len=short]=>[OUT]`
-- 3 bullet points: `[SUM|sty=bullets,cnt=3]=>[OUT]`
-- Long detailed summary: `[SUM|len=long,fmt=md]=>[OUT]`
-- Professional tone: `[SUM|ton=pro,sty=bullets]=>[OUT]`
-
-### Chain Multiple Steps
-
-Summarize, then translate, then format:
-
-```
-[SUM|len=short]=>[TRANSLATE|lang=zh]=>[FMT|fmt=md]=>[OUT]
-```
-
-One line. Three steps. Minimal tokens.
-
-## Comparison
-
-| Feature | Traditional CLI tools | Less Token |
-|---------|----------------------|------------|
-| Install required | Yes (brew, npm, binary) | No |
-| API key required | Yes (OpenAI/Gemini/etc) | No |
-| Works on | OpenClaw only | Any AI platform |
-| Summarize web pages | Yes | Yes (via i.ilang.ai) |
-| Summarize PDFs | Yes | Yes (upload + one line) |
-| Summarize YouTube | Yes (needs Apify) | Yes (via i.ilang.ai) |
-| Token efficiency | Standard prompts | 40-65% fewer tokens |
-| Setup time | 5-10 minutes | 30 seconds |
+| What you want | Verbose prompt | Compressed |
+|--------------|----------------|------------|
+| Short summary | "Give me a brief summary of the main points" | `[SUM\|len=short]=>[OUT]` |
+| 3 bullet points | "Summarize in 3 concise bullet points" | `[SUM\|sty=bullets,cnt=3]=>[OUT]` |
+| Professional report | "Create a professional executive summary in Markdown" | `[SUM\|ton=pro,sty=executive,fmt=md]=>[OUT]` |
+| Key findings only | "Extract only the key findings and important data" | `[SUM\|key=findings]=>[OUT]` |
+| Summarize + translate | "Summarize then translate to Chinese" | `[SUM\|len=short]=>[TRANSLATE\|lang=zh]=>[OUT]` |
+| Compare + summarize | "Compare these two and summarize the differences" | `[CMP]=>[DIFF]=>[SUM\|sty=bullets]=>[OUT]` |
+| Reformat summary | "Summarize as bullet points in Markdown" | `[SUM\|sty=bullets]=>[FMT\|fmt=md]=>[OUT]` |
 
 ## Before & After
 
-**Summarize a web page:**
+**Before** (28 words):
+> Please read through this document carefully, identify the most important points and key takeaways, then write a concise professional summary using bullet points.
 
-Before (26 words):
-> Go to this URL, read the full page content, extract the main points, and give me a concise summary in bullet point format.
+**After** (7 words):
+```
+[SUM|key=important,sty=bullets,ton=pro]=>[OUT]
+```
+75% fewer tokens. Same result.
 
-After (with AI See + I-Lang):
-> i.ilang.ai/https://example.com
-> `[SUM|sty=bullets,len=short]=>[OUT]`
+**Before** (22 words):
+> Take the main findings from the text above and rewrite them as a short executive summary suitable for a business audience.
 
-75% fewer tokens.
+**After** (5 words):
+```
+[SUM|sty=executive,ton=pro]=>[OUT]
+```
+77% fewer tokens. Same result.
 
-**Summarize a PDF:**
+## Comparison
 
-Before (32 words):
-> Please read through this entire PDF document, identify all the key findings and important data points, then create a professional executive summary with the most critical information highlighted.
-
-After (I-Lang):
-> `[SUM|key=findings,ton=pro,sty=bullets,fmt=md]=>[OUT]`
-
-80% fewer tokens.
+| Feature | CLI-based tools | Less Token |
+|---------|----------------|------------|
+| Install required | Yes (brew, npm, binary) | No |
+| API key required | Yes | No |
+| Works on | Single platform | Any AI platform |
+| Token efficiency | Standard prompts | 40-65% fewer tokens |
+| Setup time | 5-10 minutes | 30 seconds |
+| External dependencies | Multiple | Zero |
 
 ## Tested Platforms
 
@@ -139,7 +94,6 @@ ChatGPT ✅ · Claude ✅ · Gemini ✅ · DeepSeek ✅ · Kimi ✅ · 豆包 �
 
 ## Links
 
-- AI See (give AI eyes to read any webpage): https://i.ilang.ai
 - Protocol & tools: https://ilang.ai
 - Full dictionary: https://github.com/ilang-ai/ilang-dict
 - Research: https://research.ilang.ai
