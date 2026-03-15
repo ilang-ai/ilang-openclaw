@@ -1,4 +1,4 @@
-# 🦞 I-Lang Skills for OpenClaw
+# 🦞 I-Lang (I Language) Skills for OpenClaw
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Platform](https://img.shields.io/badge/Platform-7%20AIs%20Tested-brightgreen)](#compatible-platforms)
