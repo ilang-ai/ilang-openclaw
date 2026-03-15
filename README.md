@@ -11,7 +11,8 @@ Official I-Lang skills for OpenClaw and ClawHub. Cross-platform human-AI communi
 | Skill | What It Does | ClawHub |
 |-------|-------------|---------|
 | **everything-is-ok** | 无所不能 — Make any AI work better. Compress, complete answers, finished deliverables. | [Install](https://clawhub.ai/adsorgcn/everything-is-ok) |
-| **less-token** | Save 40-65% tokens on summarization. Web pages, PDFs, YouTube — zero install, zero API key. | [Install](https://clawhub.ai/adsorgcn/less-token) |
+| **less-token** | Save 40-65% tokens on summarization. Compress verbose prompts into one-line instructions. | [Install](https://clawhub.ai/adsorgcn/less-token) |
+| **no-prompt** | Stop learning prompt engineering. Tell AI what you want — AI writes the perfect instruction. | [Install](https://clawhub.ai/adsorgcn/no-prompt) |
 | **ilang-compress** | Original I-Lang compression skill. Translate prompts into I-Lang syntax. | [Install](https://clawhub.ai/adsorgcn/ilang-compress) |
 
 ## Why These Skills Are Different
@@ -30,12 +31,16 @@ Every I-Lang skill is **instruction-only**. No binaries, no dependencies, no cre
 ```
 
 1. Pick a skill above
-2. Open its `prompt.md`
-3. Copy the full text
-4. Paste into any AI conversation
-5. Done
+2. Copy the protocol text from its skill page
+3. Paste into any AI conversation
+4. Done
 
 ## Example
+
+```
+Old way:  Human learns prompt engineering → writes optimized prompt → sends to AI
+No Prompt: Human says what they want → AI writes I-Lang instruction → copy to any AI
+```
 
 ```
 Input:  "Please read my document, extract key points, summarize as professional bullet points in Markdown"
