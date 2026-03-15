@@ -1,7 +1,7 @@
 ---
 name: less-token
 description: "Save 40-65% tokens on summarization tasks. Compress verbose summary prompts into structured one-line instructions. Text-to-text translator only — no CLI, no API key, no install, no external dependencies. Works on ChatGPT, Claude, Gemini, DeepSeek, Kimi. Instruction-only, zero dependencies."
-version: 1.0.1
+version: 1.0.2
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -32,10 +32,10 @@ Save 40-65% tokens on summarization tasks. Compress verbose natural language pro
 
 ## How to Use
 
-1. Open the `prompt.md` file
-2. Copy the full text
-3. Paste it into any AI conversation
-4. AI responds — ready to compress
+1. Copy the full protocol text from this skill page
+2. Paste it into any AI conversation
+3. AI responds — ready to compress
+
 
 ### Quick Test
 
