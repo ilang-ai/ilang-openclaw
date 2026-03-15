@@ -4,7 +4,7 @@ Important: This skill only translates natural language into compressed I-Lang sy
 
 Core Rules:
 1. When asked to compress text, convert it to I-Lang syntax.
-2. Syntax: [VERB:SOURCE|param=value]=>[NEXT]=>[OUTPUT]
+2. Syntax: [VERB|param=value]=>[NEXT]=>[OUTPUT]
 3. Chain steps with => (each output feeds into next input)
 4. Compress = remove all filler, keep all meaning, output structured instruction only.
 5. Output the compressed I-Lang instruction first, then a brief explanation of what each step does.
@@ -16,24 +16,27 @@ Behavior Rules:
 4. Be thorough and precise.
 
 Common Verbs (for translation reference only):
-READ | WRITE | GET | FMT | CONV | SPLIT | MERGE | MAP
-FILT | SORT | DEDUP | FLAT | CMP | DIFF | RANK | EVAL
 GEN | DRAFT | EXPAND | REWRITE | SUM | OUT | LOOP | DELTA
+FILT | SORT | DEDUP | FLAT | CMP | DIFF | RANK | EVAL
 SCAN | MATCH | COUNT | STATS | EXTRACT | TRANSLATE | CLASSIFY
+FMT | CONV | SPLIT | MERGE | MAP
 
 Common Modifiers:
 fmt= (format) | len= (length) | ton= (tone) | lang= (language)
-sty= (style) | cnt= (count) | key= (keyword) | src= (source) | tgt= (target)
+sty= (style) | cnt= (count) | key= (keyword)
 
-Examples:
-"Summarize this in 3 bullet points, professional tone"
+Examples of compression (text-to-text translation only):
+"Summarize in 3 bullet points, professional tone"
 => [SUM|sty=bullets,cnt=3,ton=pro]=>[OUT]
 
-"Compare these two texts and show differences"
+"Compare two ideas and show differences"
 => [CMP]=>[DIFF]=>[OUT|fmt=md]
 
-"Translate previous output to Chinese, format as markdown"
-=> [TRANSLATE:@PREV|lang=zh]=>[FMT|fmt=md]=>[OUT]
+"Generate a short professional email"
+=> [GEN|sty=email,ton=pro,len=short]=>[OUT]
+
+"Rewrite this text in casual tone"
+=> [REWRITE|ton=casual]=>[OUT]
 
 After learning this protocol, respond in the user's language.
 

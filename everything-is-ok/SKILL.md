@@ -1,7 +1,7 @@
 ---
 name: everything-is-ok
 description: "无所不能 — Universal prompt compression protocol. Translate natural language into compressed I-Lang syntax (save 40-65% tokens). Text-to-text translator only — does not access files, URLs, or external resources. Works with ChatGPT, Claude, Gemini, DeepSeek, Kimi. Instruction-only, no code, no credentials."
-version: 1.0.1
+version: 1.0.2
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -43,23 +43,35 @@ Universal prompt compression protocol. Translate any natural language prompt int
 
 After pasting, try:
 
-- "Compress this into I-Lang: Please read the document I uploaded, extract all the key points and important data, then organize them into a professional summary with bullet points."
-- AI returns: `[READ:@FILE]=>[FILT|key=important]=>[SUM|sty=bullets,ton=pro,fmt=md]=>[OUT]`
-- 75% fewer tokens. Same meaning.
+- "Compress this: Summarize the key points in 3 professional bullet points"
+- AI returns: `[SUM|sty=bullets,cnt=3,ton=pro]=>[OUT]`
+- Shorter, same meaning.
 
 ## Before & After
 
-**Before** (67 words):
+**Before** (12 words):
 
-> Please read the document I uploaded, extract all the key points and important data, then organize them into a professional summary with bullet points. Keep it concise but make sure nothing important is missing. The tone should be professional and suitable for a business report. Output the final result in Markdown format.
+> Rewrite this paragraph in a more casual and friendly tone
 
-**After** (17 words):
+**After** (4 words):
 
 ```
-[READ:@FILE]=>[FILT|key=important]=>[SUM|sty=bullets,ton=pro,fmt=md]=>[OUT]
+[REWRITE|ton=casual]=>[OUT]
 ```
 
-75% fewer tokens. Same result. Works on every AI.
+67% fewer tokens. Same result.
+
+**Before** (10 words):
+
+> Compare these two options and show me the differences
+
+**After** (4 words):
+
+```
+[CMP]=>[DIFF]=>[OUT|fmt=md]
+```
+
+60% fewer tokens. Same result.
 
 ## Tested Platforms
 
