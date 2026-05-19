@@ -1,7 +1,7 @@
 ---
 name: freemoney
 description: "白拿钱 — 美国集体诉讼理赔追踪技能。自动监控86+开放案件，每天推送新增理赔，筛选免凭证案件。数据源覆盖OpenClassActions、TopClassActions、ClaimDepot三大平台。纯中文交互，I-Lang v4.0协议驱动。适合在美华人、跨境电商卖家、有美国账号的用户。零配置，装上就用。"
-version: 1.0.0
+version: 1.0.1
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
