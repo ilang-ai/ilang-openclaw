@@ -1,54 +1,80 @@
 ::ILANG::v4.0
 [TYPE:skill+agent]
 [NAME:freemoney/白拿钱]
-[VERSION:1.0.1]
+[VERSION:1.1.0]
 [LANG:zh-CN]
 
-::OBJECTIVE{goal:"追踪美国集体诉讼理赔案件，每天推送新增案件，帮助用户找到可申请的免费赔偿"|accept:"用户能看到最新案件列表并知道如何申请"}
+::OBJECTIVE{goal:"追踪美国集体诉讼理赔案件，帮助用户查询可申请的免费赔偿"|accept:"用户能看到最新案件列表并知道如何申请"}
 
 ::PRIOR{language:zh-CN|format:markdown|tone:实用直接不废话}
+
+---
+
+# 说明
+
+本文件是I-Lang v4.0协议格式的行为指令。Agent读取后理解意图，转换为实际的工具调用和回复。不是直接可执行的代码。
 
 ---
 
 # 数据源
 
 ```
-[SET:@API|path="https://api.ilang.ai/claims"]
+API基地址: https://api.ilang.ai/claims
 
 端点:
-  @API/api/latest    → 全部开放案件
-  @API/api/new       → 今日新增
-  @API/api/no-proof  → 免凭证案件（不需要购物凭证）
-  @API/api/stats     → 统计概览
+  /api/latest    → 全部开放案件
+  /api/new       → 今日新增
+  /api/no-proof  → 免凭证案件（不需要购物凭证）
+  /api/stats     → 统计概览
+
+所有端点返回JSON格式:
+{
+  "count": 数字,
+  "updated_at": "时间戳",
+  "settlements": [案件数组]
+}
+
+每条案件包含:
+  name          案件名（英文原文）
+  amount        金额
+  deadline      截止日期
+  proof_required  是否需要凭证（false=免凭证）
+  claim_url     申请链接
+  category      类型（data_breach/financial/consumer/privacy/employment）
+  source_name   数据来源
 ```
 
 ---
 
-# 定时任务
+# 定时推送（需要用户手动配置cron）
+
+如果用户配置了定时任务，Agent应该：
 
 ```
-[CRON|schedule="0 8 * * *"|timezone="Asia/Shanghai"]=>
-  [GET:@API/api/new]=>
-  [FILT|whr="count > 0"]=>
-  [FMT|fmt=md,lng=zh-CN]=>
-  [SEND:@飞书|channel=default]
+每天执行一次:
+  [GET:https://api.ilang.ai/claims/api/new]=>
+  读取返回JSON中的 .settlements 数组=>
+  如果 .count > 0:
+    用中文格式化每条案件=>
+    推送到飞书
+  如果 .count == 0:
+    不推送，静默
 ```
 
 推送格式:
 ```
-📢 白拿钱日报 — {date}
+白拿钱日报 — {日期}
 
 今日新增 {count} 条理赔案件：
 
-{foreach settlement}
-💰 {name}
+{逐条列出}
+案件：{name}
 金额：{amount}
-需要凭证：{proof_required ? "是" : "否❗免凭证"}
+需要凭证：{proof_required 为 false 则显示"否，免凭证"，为 true 则显示"是"}
 类型：{category}
 申请：{claim_url}
-{/foreach}
 
-数据来源：api.ilang.ai | 技术支持QQ群：615298
+数据来源：api.ilang.ai | 问题反馈QQ群：615298
 ```
 
 ---
@@ -56,65 +82,70 @@
 # 用户交互
 
 ## 查询全部案件
+
+用户说：所有案件 / 全部 / 列表 / 有什么案子 / 最新
+
 ```
-[MTCH:@用户输入|mch="所有案件|全部|列表|有什么案子|最新"]=>
-  [GET:@API/api/latest]=>
-  [FMT|fmt=md,lng=zh-CN,sty=table]=>
-  [OUT]
+[GET:https://api.ilang.ai/claims/api/latest]=>
+读取 .settlements 数组=>
+用表格格式输出
 ```
 
 输出格式:
 ```
-📋 当前开放案件（共{count}条，更新于{updated_at}）
+当前开放案件（共{count}条，更新于{updated_at}）
 
 | 案件 | 金额 | 免凭证 | 类型 |
 |------|------|--------|------|
-{foreach settlement}
-| {name} | {amount} | {proof_required ? "需要" : "✅免凭证"} | {category} |
-{/foreach}
+| {name} | {amount} | {proof_required为false显示"免凭证"，为true显示"需要"} | {category} |
+...
 
-需要某个案件的详细申请方式？发送案件名称即可。
+需要某个案件的详细申请方式？告诉我案件名称。
 ```
 
 ## 查询免凭证案件
+
+用户说：免凭证 / 不需要凭证 / no proof / 最容易 / 直接申请 / 白拿
+
 ```
-[MTCH:@用户输入|mch="免凭证|不需要凭证|no proof|最容易|直接申请|白拿"]=>
-  [GET:@API/api/no-proof]=>
-  [FMT|fmt=md,lng=zh-CN]=>
-  [OUT]
+[GET:https://api.ilang.ai/claims/api/no-proof]=>
+读取 .settlements 数组=>
+逐条列出
 ```
 
 输出格式:
 ```
-🎯 免凭证案件（不需要购物凭证，声明即可申请）
+免凭证案件（不需要购物凭证，声明即可申请）
 
-{foreach settlement}
-💰 {name}
+{逐条列出}
+案件：{name}
 金额：{amount}
 申请链接：{claim_url}
-⚠️ 提醒：虽然不需要凭证，但必须确实符合条件。虚假申请是联邦犯罪。
-{/foreach}
+
+提醒：虽然不需要凭证，但必须确实符合条件。虚假申请是联邦犯罪。
 ```
 
 ## 查询今日新增
+
+用户说：新案子 / 今天 / 新增 / 更新
+
 ```
-[MTCH:@用户输入|mch="新案子|今天|新增|更新"]=>
-  [GET:@API/api/new]=>
-  [EVAL|whr="count == 0"|msg="今天暂无新增案件。已有案件列表可发"全部"查看。"]=>
-  [FMT|fmt=md,lng=zh-CN]=>
-  [OUT]
+[GET:https://api.ilang.ai/claims/api/new]=>
+如果 .count == 0:
+  回复"今天暂无新增案件。发'全部'可查看已有案件。"
+如果 .count > 0:
+  逐条列出新增案件
 ```
 
 ## 查询统计
-```
-[MTCH:@用户输入|mch="统计|多少条|概览"]=>
-  [GET:@API/api/stats]=>
-  [OUT|fmt=md]
-```
 
-输出格式:
+用户说：统计 / 多少条 / 概览
+
 ```
-📊 理赔追踪统计
+[GET:https://api.ilang.ai/claims/api/stats]=>
+输出:
+
+理赔追踪统计
 
 总开放案件：{total}
 今日新增：{new_today}
@@ -125,41 +156,35 @@
 ```
 
 ## 查询某个具体案件
+
+用户说：怎么申请XX / 如何申请 / XX案件详情
+
 ```
-[MTCH:@用户输入|mch="怎么申请|如何申请|详细|{案件名关键词}"]=>
-  [GET:@API/api/latest]=>
-  [FILT|whr="name contains 关键词"]=>
-  [EXPD|添加申请步骤说明]=>
-  [OUT|fmt=md,lng=zh-CN]
+[GET:https://api.ilang.ai/claims/api/latest]=>
+在 .settlements 数组中搜索名称包含用户关键词的案件=>
+找到后输出详情+申请步骤
 ```
 
 输出格式:
 ```
-💰 {name}
+{name}
 
 金额：{amount}
-截止日期：{deadline || "见官网"}
-需要凭证：{proof_required ? "是" : "否（免凭证）"}
+截止日期：{deadline，如果为空则显示"见官网"}
+需要凭证：{proof_required为false显示"否（免凭证）"，为true显示"是"}
 类型：{category}
 来源：{source_name}
 
-📝 申请步骤：
+申请步骤：
 1. 打开申请链接：{claim_url}
 2. 填写个人信息（姓名、地址、邮箱）
 3. 选择赔偿方式（通常是PayPal或支票）
 4. 提交后等待3-12个月
 
-⚠️ 注意事项：
+注意事项：
 - 需要美国地址（转运地址也可以）
 - 需要美区PayPal接收赔偿金
 - 虚假申请是联邦犯罪（perjury），只申请你确实符合条件的
-```
-
-## 手动刷新数据
-```
-[MTCH:@用户输入|mch="刷新|更新数据|手动抓取"]=>
-  [GET:@API/api/run]=>
-  [OUT|msg="数据已刷新。总计{total}条，新增{new_today}条，免凭证{no_proof}条。"]
 ```
 
 ---
@@ -189,6 +214,17 @@
 
 # 启动确认
 
-[EVAL:@SELF|载入freemoney技能]=>
-[GET:@API/api/stats]=>
-[OUT|msg="白拿钱技能已激活。\n\n当前追踪 {total} 条开放案件，其中 {no_proof} 条免凭证。\n\n你可以问我：\n- 有什么新案子？\n- 哪些不需要凭证？\n- 怎么申请XX案件？\n\n数据每天自动更新，新案件会推送到飞书。\n问题反馈QQ群：615298"]
+技能加载后，调用 https://api.ilang.ai/claims/api/stats 获取当前数据，然后回复：
+
+```
+白拿钱技能已激活。
+
+当前追踪 {total} 条开放案件，其中 {no_proof} 条免凭证。
+
+你可以问我：
+- 有什么新案子？
+- 哪些不需要凭证？
+- 怎么申请XX案件？
+
+问题反馈QQ群：615298
+```
