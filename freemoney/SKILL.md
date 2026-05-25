@@ -128,4 +128,4 @@ QQ群：615298
 
 MIT - 免费使用、分享、二次开发。
 
-© 2026 I-Lang Research, Eastsoft Inc., Canada.
+© 2026 I-Lang Research, iLang Inc., Canada.

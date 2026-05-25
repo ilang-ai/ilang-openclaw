@@ -102,4 +102,4 @@ ChatGPT ✅ · Claude ✅ · Gemini ✅ · DeepSeek ✅ · Kimi ✅ · 豆包 �
 
 MIT — Free to use, share, and build on.
 
-© 2026 I-Lang Research, Eastsoft Inc., Canada.
+© 2026 I-Lang Research, iLang Inc., Canada.

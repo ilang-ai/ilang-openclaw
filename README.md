@@ -160,4 +160,4 @@ All skills pass ClawHub security scan with **Benign -- High Confidence**:
 
 MIT -- Free to use, modify, share, and build on.
 
-**I-Lang Research / Eastsoft Inc. / Canada / 2026**
+**I-Lang Research / iLang Inc. / Canada / 2026**
