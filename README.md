@@ -1,160 +1,107 @@
-# I-Lang Skills for OpenClaw / Hermes / Any AI Agent
+# I-Lang OpenClaw — Skills + Plugins
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Platform](https://img.shields.io/badge/Platform-8%2B%20AIs%20Tested-brightgreen)](#compatible-platforms)
 [![Skills](https://img.shields.io/badge/Skills-6%20Published-blue)](#skills)
-[![Protocol](https://img.shields.io/badge/I--Lang-v3.0%20%7C%2088%20Verbs-purple)](https://ilang.ai)
-[![Install](https://img.shields.io/badge/Install-Zero%20Dependencies-orange)](#quick-start)
+[![Plugins](https://img.shields.io/badge/Plugins-1%20Published-blue)](#plugins)
+[![Protocol](https://img.shields.io/badge/I--Lang-v4.0-purple)](https://ilang.ai)
 
-> **I-Lang is not a human language simplified for AI. It is the native language of AI.**
+> **Skills** = instruction-only text, paste into any AI, zero dependencies.
 >
-> 88 verbs. Zero install. Zero ambiguity. Say it once, get it right.
+> **Plugins** = code that runs inside OpenClaw, registers tools + hooks.
 
 ---
 
-## What is I-Lang
+## Repo Structure
 
-A communication protocol for humans and AI. Like HTTP standardized the web, I-Lang standardizes how you talk to AI and how AI agents talk to each other.
-
-**No CLI. No API key. No brew. No npm.** Copy a text block, paste into any AI, instant upgrade. Every skill is instruction-only with zero dependencies.
+```
+ilang-openclaw/
+├── skills/              ← Text-only skills (SKILL.md + prompt.md)
+│   ├── freemoney/       ← 白拿钱 — US class action settlement tracker
+│   ├── lazarus/         ← Bring dead websites back to life
+│   ├── everything-is-ok/← Universal prompt compression
+│   ├── no-prompt/       ← AI writes prompts for you
+│   ├── less-token/      ← Compress prompts, save tokens
+│   └── ilang-compress/  ← Original I-Lang compression engine
+├── plugins/             ← Code plugins for OpenClaw runtime
+│   └── freemoney-plugin/← 白拿钱 native OpenClaw integration
+└── .github/workflows/   ← Auto-publish on push to main
+```
 
 ---
 
 ## Skills
 
-### freemoney `v1.1.1` -- Free Money (Class Action Tracker)
+### freemoney `v1.2.0` -- 白拿钱 (Free Money)
 
-Track 60+ open US class action settlements. Get notified of new claims. Filter no-proof cases. Chinese interface, real-time data from api.ilang.ai.
+Track 60+ open US class action settlements. Filter no-proof cases. Chinese interface.
 
-```
-"有什么新案子？"  "哪些不需要凭证？"  "怎么申请Google那个？"
-```
-
-Data sources: OpenClassActions + TopClassActions + ClaimDepot, updated daily.
-
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/freemoney) | [**Details**](./freemoney/SKILL.md)
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/freemoney) | [**Details**](./skills/freemoney/SKILL.md)
 
 ---
 
-### everything-is-ok `v1.0.2` -- Make Any AI Better
+### lazarus `v1.0.1` -- Bring Dead Websites Back to Life
 
-One skill to rule them all. Structured execution, complete answers, finished deliverables.
+Recover Google-indexed content from defunct websites via Wayback Machine. Pairs with AutoCode for one-click deployment.
 
-```
-[SUM|sty=bullets,ton=pro,fmt=md]=>[OUT]
-```
-
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/everything-is-ok)
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/lazarus) | [**Details**](./skills/lazarus/SKILL.md)
 
 ---
 
-### no-prompt `v1.0.0` -- End of Prompt Engineering
+### everything-is-ok `v1.0.3` -- Universal Prompt Compression
 
-Stop learning prompt techniques. Tell AI what you want in plain language. AI writes the perfect I-Lang instruction for you.
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/everything-is-ok) | [**Details**](./skills/everything-is-ok/SKILL.md)
 
-```
-Old way:    Human learns prompt engineering -> writes prompt -> sends to AI
-No Prompt:  Human says what they want -> AI writes I-Lang -> copy to any AI
-```
+---
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/no-prompt)
+### no-prompt `v1.0.1` -- AI Writes Prompts For You
+
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/no-prompt) | [**Details**](./skills/no-prompt/SKILL.md)
 
 ---
 
 ### less-token `v1.0.2` -- Compress Prompts
 
-Compress verbose prompts into one-line I-Lang instructions. 40-65% fewer tokens, same result.
-
-```
-Before: "Please summarize the key findings in professional bullet points"
-After:  [SUM|key=findings,sty=bullets,ton=pro]=>[OUT]
-```
-
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/less-token)
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/less-token) | [**Details**](./skills/less-token/SKILL.md)
 
 ---
 
-### ilang-compress `v2.3.1` -- Original Compression
+### ilang-compress `v2.3.1` -- Original Compression Engine
 
-The original I-Lang compression skill. Translate any natural language prompt into I-Lang syntax.
-
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/ilang-compress)
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/ilang-compress) | [**Details**](./skills/ilang-compress/SKILL.md)
 
 ---
 
-### lazarus `v1.0.0` -- Bring Dead Websites Back to Life / 捡尸复活
+## Plugins
 
-Recover Google-indexed content from defunct websites via Wayback Machine. Only recovers pages that were actually indexed — no garbage. Pairs with AutoCode for one-click deployment.
+### freemoney-plugin `v1.0.0` -- 白拿钱 Native Integration
 
+Same data as the skill, but runs as real code inside OpenClaw:
+
+- **4 tools**: query_claims, query_no_proof, query_new, query_stats
+- **1 hook**: daily_push — auto-notify new settlements at 9am
+- **Network**: GET-only to api.ilang.ai, no user data uploaded
+
+```bash
+openclaw plugins install clawhub:@ilang-ai/freemoney-plugin
 ```
-You:      "Recover example.com"
-Lazarus:  Verify Death → Scout → Check Google Index → Recover GOLD+SILVER → Clean → Deploy
-Result:   Dead site → Live site, one session. Only indexed content, zero waste.
-```
 
-通过 Wayback Machine 恢复已倒闭网站中被谷歌收录过的内容。捡尸要捡有价值的尸。配合 AutoCode 一键部署。
-
-[**Details / 详情**](./lazarus/SKILL.md)
+[**Details**](./plugins/freemoney-plugin/)
 
 ---
 
 ## Quick Start
 
-```
-Step 1: Pick a skill above
-Step 2: Copy the protocol text from its skill page
-Step 3: Paste into any AI conversation
-Step 4: Done.
-```
+**Skills**: Copy text from skill page → paste into any AI → done.
 
-Works inside OpenClaw, Hermes, YouMind, and outside -- any AI, any platform.
+**Plugins**: `openclaw plugins install clawhub:@ilang-ai/freemoney-plugin` → done.
 
 ---
 
-## Distribution
+## CI/CD
 
-| Platform | Link |
-|----------|------|
-| ClawHub | [clawhub.ai/adsorgcn](https://clawhub.ai/adsorgcn) |
-| Hermes (agentskills.io) | `hermes skills install` |
-| YouMind | [youmind.com](https://youmind.com) |
-| GitHub | This repo -- clone and use directly |
-
----
-
-## How It's Different
-
-```
-Traditional Skills:
-  brew install -> config API key -> restart agent -> use
-  Single platform. Dependencies. Setup time.
-
-I-Lang Skills:
-  copy text -> paste into AI -> use
-  Every platform. Zero deps. 30 seconds.
-```
-
----
-
-## Security
-
-All skills pass ClawHub security scan with **Benign -- High Confidence**:
-
-- Instruction-only -- no code, no scripts, no binaries
-- Zero credentials -- no API keys, no env vars, no tokens
-- Zero network access -- no URLs fetched, no external calls
-- Text-to-text protocol -- converts natural language to structured syntax
-
----
-
-## Compatible Platforms
-
-| Platform | Tested | Platform | Tested |
-|----------|--------|----------|--------|
-| ChatGPT / GPT-4o | Yes | Kimi | Yes |
-| Claude | Yes | DeepSeek | Yes |
-| Gemini | Yes | Qwen | Yes |
-| OpenClaw | Yes | Hermes | Yes |
+Push to `main` triggers auto-publish:
+- Skills: detects changed `skills/*/SKILL.md`, publishes via `clawhub publish`
+- Plugins: detects changed `plugins/*/`, builds TypeScript, publishes via `clawhub package publish`
 
 ---
 
@@ -162,18 +109,15 @@ All skills pass ClawHub security scan with **Benign -- High Confidence**:
 
 | Resource | Link |
 |----------|------|
-| Protocol & Dictionary | [ilang.ai](https://ilang.ai) -- 88 verbs, 13 symbol aliases |
-| Spec & Source | [ilang-ai/ilang-spec](https://github.com/ilang-ai/ilang-spec) |
-| AI See | [i.ilang.ai](https://i.ilang.ai) -- Give AI eyes to see any URL |
-| AutoCode | [ilang-ai/autocode](https://github.com/ilang-ai/autocode) -- 38+ skills for Claude Code / Cursor |
-| Imprint | [ilang-ai/Imprint](https://github.com/ilang-ai/Imprint) -- AI personality persistence |
-| Research | [ORCID 0009-0004-4540-8082](https://orcid.org/0009-0004-4540-8082) |
-| Book | Amazon ASIN B0CZY6V3GM |
+| I-Lang Protocol | [ilang.ai](https://ilang.ai) |
+| AutoCode | [ilang-ai/autocode](https://github.com/ilang-ai/autocode) |
+| Imprint | [ilang-ai/Imprint](https://github.com/ilang-ai/Imprint) |
+| ClawHub Publisher | [clawhub.ai/adsorgcn](https://clawhub.ai/adsorgcn) |
 
 ---
 
 ## License
 
-MIT -- Free to use, modify, share, and build on.
+MIT — Free to use, modify, share, and build on.
 
-**I-Lang Research / iLang Inc. / Canada / 2026**
+**iLang Inc. / Canada / 2026**

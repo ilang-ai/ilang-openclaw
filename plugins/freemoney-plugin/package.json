@@ -1,0 +1,45 @@
+{
+  "name": "@ilang-ai/freemoney-plugin",
+  "version": "1.0.0",
+  "description": "白拿钱 — US class action settlement tracker plugin for OpenClaw. Auto-queries api.ilang.ai for open settlements, filters no-proof claims, and pushes daily updates.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "openclaw",
+    "plugin",
+    "settlement",
+    "claims",
+    "class-action",
+    "free-money",
+    "ilang"
+  ],
+  "author": "iLang Inc. <contact@ilang.ai>",
+  "license": "MIT",
+  "homepage": "https://ilang.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ilang-ai/ilang-openclaw.git",
+    "directory": "plugins/freemoney-plugin"
+  },
+  "openclaw": {
+    "compat": {
+      "pluginApi": ">=5.0.0",
+      "minGatewayVersion": "5.0.0"
+    },
+    "build": {
+      "openclawVersion": "5.4.0"
+    },
+    "metadata": {
+      "emoji": "💰",
+      "category": "Data & APIs",
+      "trust": "community"
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0"
+  }
+}

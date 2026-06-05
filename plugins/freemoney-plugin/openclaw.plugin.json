@@ -1,0 +1,40 @@
+{
+  "name": "@ilang-ai/freemoney-plugin",
+  "displayName": "白拿钱 (Free Money)",
+  "description": "US class action settlement tracker. Queries api.ilang.ai for open claims, filters no-proof settlements, and pushes daily updates to your channel.",
+  "version": "1.0.0",
+  "author": "ilang-ai",
+  "homepage": "https://ilang.ai",
+  "entryPoint": "dist/index.js",
+  "tools": [
+    {
+      "name": "query_claims",
+      "description": "查询全部开放理赔案件 / List all open class action settlements"
+    },
+    {
+      "name": "query_no_proof",
+      "description": "查询免凭证案件 / List settlements that don't require proof of purchase"
+    },
+    {
+      "name": "query_new",
+      "description": "查询今日新增案件 / List today's new settlements"
+    },
+    {
+      "name": "query_stats",
+      "description": "理赔统计概览 / Settlement tracking statistics"
+    }
+  ],
+  "hooks": [
+    {
+      "name": "daily_push",
+      "event": "cron",
+      "schedule": "0 9 * * *",
+      "description": "每天早9点检查新案件并推送 / Daily new settlement push at 9am"
+    }
+  ],
+  "permissions": {
+    "network": ["api.ilang.ai"],
+    "filesystem": false,
+    "env": false
+  }
+}
