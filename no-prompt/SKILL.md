@@ -1,7 +1,7 @@
 ---
 name: no-prompt
-description: "Stop learning prompt engineering. Tell AI what you want in plain language — AI writes the perfect instruction for you in I-Lang. Copy it to any other AI, it executes perfectly. Zero prompt skills needed. Text-to-text translator only, no code, no install, no credentials."
-version: 1.0.0
+description: "Stop learning prompt engineering. Tell AI what you want in plain language — AI writes a structured instruction for you in I-Lang. Copy it to other AIs as a well-structured starting point. Zero prompt skills needed. Generates text instructions only, no code, no install, no credentials. Results may vary by model."
+version: 1.0.1
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -21,9 +21,9 @@ tags:
 
 **Stop learning prompt engineering.** You don't need 58 techniques. You don't need courses. You don't need to study.
 
-Just tell your AI what you want in plain language. It writes the perfect structured instruction for you. Copy that instruction to any other AI. Done.
+Just tell your AI what you want in plain language. It writes a structured instruction for you. Copy that instruction to another AI as a starting point. Done.
 
-**This skill is a text-to-text translator only.** It does not execute commands, access files, or call external services.
+**This skill generates structured I-Lang instructions only.** It does not execute commands, access files, or call external services. Generated instructions are well-structured prompts for other AIs — results may vary by model, so review before use on sensitive tasks.
 
 ## The Idea
 
@@ -59,7 +59,7 @@ AI returns:
 [SUM|key=takeaways,cnt=5,ton=pro]=>[OUT]
 ```
 
-Copy this. Use it anytime you need the same task. Works on every AI.
+Copy this. Use it anytime you need the same task. Works across major AIs.
 
 **Way 2: AI-to-AI handoff**
 
@@ -70,7 +70,7 @@ AI A returns:
 [CMP|key=strategy]=>[EVAL|ton=pro]=>[RANK]=>[OUT|fmt=md]
 ```
 
-Paste into AI B. AI B executes it perfectly. Two AIs, one language.
+Paste into AI B. AI B follows the structured format. Two AIs, one language.
 
 **Way 3: Build a personal instruction library**
 
@@ -90,7 +90,7 @@ Ask AI to generate I-Lang instructions for tasks you do repeatedly. Save them. R
 | Cost | $50-500 | Free-$20/mo | Free |
 | Install required | No | Often yes | No |
 | Remembering techniques | 58+ techniques | Tool-dependent | AI remembers for you |
-| Cross-platform | Depends | Usually single | Every AI |
+| Cross-platform | Depends | Usually single | Major AIs |
 | Token efficiency | Varies | Standard | 40-65% savings |
 | Who writes the prompt | You | Tool assists you | AI writes it for you |
 
@@ -104,7 +104,7 @@ Ask AI to generate I-Lang instructions for tasks you do repeatedly. Save them. R
 [CMP|key=cost,timeline,risk,team,ROI]=>[EVAL|ton=pro]=>[RANK]=>[OUT|fmt=md]
 ```
 
-85% fewer tokens. More precise. Works on every AI.
+85% fewer tokens. More precise. Works across major AIs.
 
 ## Tested Platforms
 
