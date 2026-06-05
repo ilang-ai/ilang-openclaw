@@ -1,7 +1,7 @@
 # I-Lang OpenClaw — Skills + Plugins
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Skills](https://img.shields.io/badge/Skills-6%20Published-blue)](#skills)
+[![Skills](https://img.shields.io/badge/Skills-7%20Published-blue)](#skills)
 [![Plugins](https://img.shields.io/badge/Plugins-1%20Published-blue)](#plugins)
 [![Protocol](https://img.shields.io/badge/I--Lang-v4.0-purple)](https://ilang.ai)
 
@@ -17,6 +17,7 @@
 ilang-openclaw/
 ├── skills/              ← Text-only skills (SKILL.md + prompt.md)
 │   ├── freemoney/       ← 白拿钱 — US class action settlement tracker
+│   ├── deai/            ← Remove AI fingerprint from text (4 languages)
 │   ├── lazarus/         ← Bring dead websites back to life
 │   ├── everything-is-ok/← Universal prompt compression
 │   ├── no-prompt/       ← AI writes prompts for you
@@ -31,7 +32,15 @@ ilang-openclaw/
 
 ## Skills
 
-### freemoney `v1.2.1` -- 白拿钱 (Free Money)
+### deai `v1.0.0` -- Remove AI Fingerprint / 去AI味引擎
+
+Three-layer deAI: subtract fingerprint words, mark positions for human voice, restructure for natural rhythm. Supports Chinese, English, Japanese, Korean. Pairs with detect.ilang.cn for verification.
+
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/deai) | [**Details**](./skills/deai/SKILL.md)
+
+---
+
+### freemoney `v1.3.0` -- 白拿钱 (Free Money)
 
 Track 60+ open US class action settlements. Filter no-proof cases. Chinese interface.
 
