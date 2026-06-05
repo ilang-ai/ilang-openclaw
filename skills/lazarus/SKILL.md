@@ -1,7 +1,7 @@
 ---
 name: lazarus
 description: "Lazarus — Bring dead websites back to life. Recover Google-indexed content from defunct websites via Wayback Machine, then deploy with AutoCode. Only recovers content that was actually indexed — no garbage. 捡尸复活已倒闭网站，只捡被谷歌收录过的内容，配合AutoCode一键部署。"
-version: 1.0.1
+version: 1.0.2
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
