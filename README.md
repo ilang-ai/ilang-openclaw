@@ -31,7 +31,7 @@ ilang-openclaw/
 
 ## Skills
 
-### freemoney `v1.2.0` -- 白拿钱 (Free Money)
+### freemoney `v1.2.1` -- 白拿钱 (Free Money)
 
 Track 60+ open US class action settlements. Filter no-proof cases. Chinese interface.
 
@@ -39,7 +39,7 @@ Track 60+ open US class action settlements. Filter no-proof cases. Chinese inter
 
 ---
 
-### lazarus `v1.0.1` -- Bring Dead Websites Back to Life
+### lazarus `v1.0.2` -- Bring Dead Websites Back to Life
 
 Recover Google-indexed content from defunct websites via Wayback Machine. Pairs with AutoCode for one-click deployment.
 
@@ -47,25 +47,25 @@ Recover Google-indexed content from defunct websites via Wayback Machine. Pairs 
 
 ---
 
-### everything-is-ok `v1.0.3` -- Universal Prompt Compression
+### everything-is-ok `v1.0.4` -- Universal Prompt Compression
 
 [**Install on ClawHub**](https://clawhub.ai/adsorgcn/everything-is-ok) | [**Details**](./skills/everything-is-ok/SKILL.md)
 
 ---
 
-### no-prompt `v1.0.1` -- AI Writes Prompts For You
+### no-prompt `v1.0.2` -- AI Writes Prompts For You
 
 [**Install on ClawHub**](https://clawhub.ai/adsorgcn/no-prompt) | [**Details**](./skills/no-prompt/SKILL.md)
 
 ---
 
-### less-token `v1.0.2` -- Compress Prompts
+### less-token `v1.0.4` -- Compress Prompts
 
 [**Install on ClawHub**](https://clawhub.ai/adsorgcn/less-token) | [**Details**](./skills/less-token/SKILL.md)
 
 ---
 
-### ilang-compress `v2.3.1` -- Original Compression Engine
+### ilang-compress `v2.3.2` -- Original Compression Engine
 
 [**Install on ClawHub**](https://clawhub.ai/adsorgcn/ilang-compress) | [**Details**](./skills/ilang-compress/SKILL.md)
 
@@ -82,7 +82,7 @@ Same data as the skill, but runs as real code inside OpenClaw:
 - **Network**: GET-only to api.ilang.ai, no user data uploaded
 
 ```bash
-openclaw plugins install clawhub:@ilang-ai/freemoney-plugin
+openclaw plugins install clawhub:@adsorgcn/freemoney-plugin
 ```
 
 [**Details**](./plugins/freemoney-plugin/)
@@ -93,7 +93,7 @@ openclaw plugins install clawhub:@ilang-ai/freemoney-plugin
 
 **Skills**: Copy text from skill page → paste into any AI → done.
 
-**Plugins**: `openclaw plugins install clawhub:@ilang-ai/freemoney-plugin` → done.
+**Plugins**: `openclaw plugins install clawhub:@adsorgcn/freemoney-plugin` → done.
 
 ---
 
