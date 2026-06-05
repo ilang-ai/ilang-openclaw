@@ -1,7 +1,7 @@
 ---
 name: freemoney
-description: "白拿钱 — 美国集体诉讼理赔追踪技能。监控60+开放案件，推送新增理赔，筛选免凭证案件。数据源覆盖OpenClassActions、TopClassActions、ClaimDepot三大平台。纯中文交互，I-Lang v4.0协议驱动。适合在美华人、跨境电商卖家、有美国账号的用户。"
-version: 1.2.4
+description: "白拿钱 — 美国、加拿大、英国、澳洲集体诉讼理赔追踪技能。监控多国开放案件，筛选免凭证案件。数据源覆盖OpenClassActions、TopClassActions、ClaimDepot及各国官方公告。纯中文交互，I-Lang v4.0协议驱动。被动查询工具，不主动推送（推送功能见freemoney-plugin插件版）。"
+version: 1.3.0
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -18,7 +18,7 @@ tags:
 
 # Free Money（白拿钱）
 
-美国集体诉讼理赔追踪技能。帮你盯着三大理赔平台，有新案子用中文告诉你，免凭证的单独标出来。
+美国、加拿大、英国、澳洲集体诉讼理赔追踪技能。帮你盯着多国理赔平台，用中文查询案件，免凭证的单独标出来。
 
 数据来源：OpenClassActions.com + TopClassActions.com + ClaimDepot.com
 数据接口：api.ilang.ai/claims（I-Lang Research维护，每日更新）
@@ -26,8 +26,8 @@ tags:
 ## 适合谁
 
 - 在美华人，不知道自己符合哪些理赔条件
-- 跨境电商卖家，用过美国互联网服务（Google、Comcast、Fidelity等）
-- 有美国PayPal/银行账号，想要被动收入
+- 跨境电商卖家，用过美国、加拿大、英国、澳洲互联网服务
+- 有各国PayPal/银行账号，想要被动收入
 - 不懂英文，需要中文解读
 
 ## 你会得到什么
@@ -89,6 +89,7 @@ tags:
 安装完技能后，直接在飞书里跟AI说：
 
 - 「有什么新理赔案子？」 - 看最新的理赔
+- 「加拿大有什么理赔？」 - 按国家查询
 - 「哪些不需要凭证？」 - 看不用购物小票就能申请的
 - 「怎么申请Google那个？」 - 看具体某个案件的申请步骤
 - 「理赔全部」 - 看所有开放案件
@@ -113,6 +114,7 @@ tags:
 答：这个技能免费。云电脑99元/年，DeepSeek充10元起。除此之外没有任何费用。
 
 问：定时推送怎么配？
+答：本技能是被动查询工具，不支持推送。如需每日自动推送，请安装 freemoney-plugin（OpenClaw插件版）。
 答：需要在OpenClaw后台配置定时任务。具体方式取决于你的OpenClaw版本，可以在QQ群615298里问，有人帮你。
 
 ---
