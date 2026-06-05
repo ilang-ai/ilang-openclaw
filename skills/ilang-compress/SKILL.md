@@ -1,5 +1,6 @@
 ---
 name: ilang-compress
+version: 2.3.2
 description: "Compress natural language prompts into I-Lang — AI-native structured instructions. 40-65% token savings. Output is text notation only — review before passing to execution agents."
 homepage: https://ilang.ai
 metadata:
