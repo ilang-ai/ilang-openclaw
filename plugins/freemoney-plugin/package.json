@@ -1,5 +1,5 @@
 {
-  "name": "@ilang-ai/freemoney-plugin",
+  "name": "@adsorgcn/freemoney-plugin",
   "version": "1.0.0",
   "description": "白拿钱 — US class action settlement tracker plugin for OpenClaw. Auto-queries api.ilang.ai for open settlements, filters no-proof claims, and pushes daily updates.",
   "main": "dist/index.js",
