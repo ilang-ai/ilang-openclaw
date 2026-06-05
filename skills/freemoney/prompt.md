@@ -1,7 +1,7 @@
 ::ILANG::v4.0
 [TYPE:skill+agent]
 [NAME:freemoney/白拿钱]
-[VERSION:1.2.3]
+[VERSION:1.2.4]
 [LANG:zh-CN]
 
 ::OBJECTIVE{goal:"追踪美国集体诉讼理赔案件，帮助用户查询可申请的免费赔偿"|accept:"用户能看到最新案件列表并知道如何申请"}
@@ -159,7 +159,7 @@ API基地址: https://api.ilang.ai/claims
 
 ## 查询某个具体案件
 
-用户说：怎么申请XX / 如何申请 / XX案件详情
+用户说：怎么申请XX理赔 / 如何申请XX案件 / XX理赔案件详情 / 白拿XX怎么操作
 
 ```
 [GET:https://api.ilang.ai/claims/api/latest]=>
