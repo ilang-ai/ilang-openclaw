@@ -1,7 +1,7 @@
 ---
 name: lazarus
 description: "Lazarus — Bring dead websites back to life. Recover Google-indexed content from defunct websites via Wayback Machine, then deploy with AutoCode. Only recovers content that was actually indexed — no garbage. 捡尸复活已倒闭网站，只捡被谷歌收录过的内容，配合AutoCode一键部署。"
-version: 1.0.2
+version: 1.0.3
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -40,6 +40,8 @@ That content is original, abandoned, and free. But not all of it is worth recove
 [STEP:5] Clean          — Strip Wayback artifacts, fix links, convert to Markdown
 [STEP:6] Organize       — Categorize by topic + index status, add frontmatter
 [STEP:7] Deploy         — Guide user to deploy via AutoCode or any static site generator
+
+> **Legal notice**: Recovered content may still be protected by copyright even if the original site is dead. Domain expiration does not transfer content ownership. Review all recovered material for copyright, trademark, and personal information before republishing.
 ```
 
 ### Why Google Index Verification Matters
@@ -94,6 +96,8 @@ Lazarus recovers content → AutoCode deploys → Live site in one session
 [步骤5] 清洗     — 去掉 Wayback 注入代码，修链接，转 Markdown
 [步骤6] 整理     — 按主题+收录状态分类，加 frontmatter
 [步骤7] 部署     — 引导用户用 AutoCode 一键部署
+
+> **法律提醒**：恢复的内容可能仍受版权保护，域名过期不等于内容所有权转移。发布前请确认版权、商标和个人隐私信息。
 ```
 
 ### 为什么要验证谷歌收录

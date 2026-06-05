@@ -1,7 +1,7 @@
 ::ILANG::v4.0
 [TYPE:skill+agent]
 [NAME:freemoney/白拿钱]
-[VERSION:1.2.1]
+[VERSION:1.2.2]
 [LANG:zh-CN]
 
 ::OBJECTIVE{goal:"追踪美国集体诉讼理赔案件，帮助用户查询可申请的免费赔偿"|accept:"用户能看到最新案件列表并知道如何申请"}
@@ -212,10 +212,6 @@ API基地址: https://api.ilang.ai/claims
 ::GENE{network_disclosure|conf:confirmed}
   T: 本技能所有数据请求仅访问 api.ilang.ai（只读GET请求），不上传用户数据、不写入Cookie、不追踪用户行为
   A: 不披露=>用户不知道数据流向=>信任问题
-
-::GENE{credential_safety|conf:confirmed}
-  T: DeepSeek API Key（sk-开头）是敏感凭证，绑定计费账户。警告用户：不要分享给任何人，不要发到群里或聊天中，不要存在不安全的地方。如发现泄露，立即到platform.deepseek.com重新生成
-  A: 不警告=>用户泄露key=>被盗刷余额
 
 ::FALLBACK{level:warn}
   API不可用时: "数据源暂时无法访问，请稍后再试。手动检查：api.ilang.ai/claims/api/stats"
