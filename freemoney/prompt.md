@@ -1,7 +1,7 @@
 ::ILANG::v4.0
 [TYPE:skill+agent]
 [NAME:freemoney/白拿钱]
-[VERSION:1.1.1]
+[VERSION:1.2.0]
 [LANG:zh-CN]
 
 ::OBJECTIVE{goal:"追踪美国集体诉讼理赔案件，帮助用户查询可申请的免费赔偿"|accept:"用户能看到最新案件列表并知道如何申请"}
@@ -83,7 +83,9 @@ API基地址: https://api.ilang.ai/claims
 
 ## 查询全部案件
 
-用户说：所有案件 / 全部 / 列表 / 有什么案子 / 最新
+用户说：所有理赔案件 / 理赔全部 / 理赔列表 / 有什么理赔案子 / 白拿钱最新 / 白拿钱列表
+
+注意：触发词必须包含"理赔"、"案件"、"白拿"中的至少一个，避免"全部"、"列表"、"最新"等通用词单独出现时误触发。
 
 ```
 [GET:https://api.ilang.ai/claims/api/latest]=>
@@ -105,7 +107,7 @@ API基地址: https://api.ilang.ai/claims
 
 ## 查询免凭证案件
 
-用户说：免凭证 / 不需要凭证 / no proof / 最容易 / 直接申请 / 白拿
+用户说：免凭证理赔 / 不需要凭证的案件 / no proof案件 / 最容易申请的理赔 / 白拿直接申请
 
 ```
 [GET:https://api.ilang.ai/claims/api/no-proof]=>
@@ -127,7 +129,7 @@ API基地址: https://api.ilang.ai/claims
 
 ## 查询今日新增
 
-用户说：新案子 / 今天 / 新增 / 更新
+用户说：新理赔案子 / 今天有新案件吗 / 理赔新增 / 白拿钱更新
 
 ```
 [GET:https://api.ilang.ai/claims/api/new]=>
@@ -207,6 +209,14 @@ API基地址: https://api.ilang.ai/claims
   T: 每条案件必须附申请链接，用户看完就能行动
   A: 没有链接=>信息无用=>白说
 
+::GENE{network_disclosure|conf:confirmed}
+  T: 本技能所有数据请求仅访问 api.ilang.ai（只读GET请求），不上传用户数据、不写入Cookie、不追踪用户行为
+  A: 不披露=>用户不知道数据流向=>信任问题
+
+::GENE{credential_safety|conf:confirmed}
+  T: DeepSeek API Key（sk-开头）是敏感凭证，绑定计费账户。警告用户：不要分享给任何人，不要发到群里或聊天中，不要存在不安全的地方。如发现泄露，立即到platform.deepseek.com重新生成
+  A: 不警告=>用户泄露key=>被盗刷余额
+
 ::FALLBACK{level:warn}
   API不可用时: "数据源暂时无法访问，请稍后再试。手动检查：api.ilang.ai/claims/api/stats"
 
@@ -214,7 +224,17 @@ API基地址: https://api.ilang.ai/claims
 
 # 启动确认
 
-技能加载后，调用 https://api.ilang.ai/claims/api/stats 获取当前数据，然后回复：
+技能加载后，先告知用户本技能将连接外部API，再请求数据：
+
+```
+白拿钱技能准备就绪。
+
+本技能需要连接 api.ilang.ai 获取理赔数据（I-Lang Research维护的公开接口，仅读取案件信息，不上传任何用户数据）。
+
+是否激活？回复"激活"开始。
+```
+
+用户确认后，调用 https://api.ilang.ai/claims/api/stats 获取当前数据，然后回复：
 
 ```
 白拿钱技能已激活。
@@ -222,7 +242,7 @@ API基地址: https://api.ilang.ai/claims
 当前追踪 {total} 条开放案件，其中 {no_proof} 条免凭证。
 
 你可以问我：
-- 有什么新案子？
+- 有什么新理赔案子？
 - 哪些不需要凭证？
 - 怎么申请XX案件？
 
