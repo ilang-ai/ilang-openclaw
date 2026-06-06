@@ -17,7 +17,7 @@
 ilang-openclaw/
 ├── skills/              ← Text-only skills (SKILL.md + prompt.md)
 │   ├── freemoney/       ← 白拿钱 — US class action settlement tracker
-│   ├── deai/            ← Remove AI fingerprint from text (4 languages)
+│   ├── DeAI/            ← Remove AI fingerprint from text (4 languages)
 │   ├── lazarus/         ← Bring dead websites back to life
 │   ├── everything-is-ok/← Universal prompt compression
 │   ├── no-prompt/       ← AI writes prompts for you
@@ -32,11 +32,11 @@ ilang-openclaw/
 
 ## Skills
 
-### deai `v1.0.0` -- Remove AI Fingerprint / 去AI味引擎
+### DeAI `v1.1.0` -- Make AI Drafts Sound Like You / 去AI味引擎
 
-Three-layer deAI: subtract fingerprint words, mark positions for human voice, restructure for natural rhythm. Supports Chinese, English, Japanese, Korean. Pairs with detect.ilang.cn for verification.
+Three-layer deAI: clean filler phrases, mark positions for authentic voice, restructure for natural rhythm. Supports Chinese, English, Japanese, Korean. Pairs with detect.ilang.cn for verification.
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/deai) | [**Details**](./skills/deai/SKILL.md)
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/DeAI) | [**Details**](./skills/DeAI/SKILL.md)
 
 ---
 
