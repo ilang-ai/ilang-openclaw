@@ -1,6 +1,6 @@
 ---
 name: WeChat-Awesome
-version: 1.1.0
+version: 1.1.1
 description: "微信公众号写作助手。把你的素材用爆文结构重组，输出可直接排版的MD文件+封面图I-Lang提示词。内置品牌简称、平台合规、自查清单。你提供素材，它负责结构。不接受无素材请求。"
 author: ilang-ai
 homepage: https://ilang.ai
