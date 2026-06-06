@@ -1,7 +1,7 @@
 ---
 name: WeChat-Awesome
-version: 1.0.0
-description: "微信公众号写作助手。把你的素材用爆文结构重组，输出可直接排版的MD文件+封面图I-Lang提示词。内置品牌脱敏、平台合规、自查清单。你提供素材，它负责结构。不接受无素材请求。"
+version: 1.0.1
+description: "微信公众号写作助手。把你的素材用爆文结构重组，输出可直接排版的MD文件+封面图I-Lang提示词。内置品牌简称、平台合规、自查清单。你提供素材，它负责结构。不接受无素材请求。"
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -30,7 +30,7 @@ tags:
 ```
 1. MD正文         → 粘贴到 ilang.cn/md 一键复制到微信编辑器
 2. 封面图提示词    → I-Lang格式，丢给任何AI出图工具生成2.35:1封面
-3. 自查报告        → 指纹词、em-dash、反问句、表格数量、品牌脱敏全部检查
+3. 自查报告        → 指纹词、em-dash、反问句、表格数量、品牌简称全部检查
 ```
 
 ## 这不是什么
@@ -57,15 +57,15 @@ tags:
 • 长文在40%-60%处插钩子
 • 说完就走不加戏
 
-**品牌脱敏（微信专用）：**
+**品牌简称（微信编辑惯例）：**
 
-| 原名 | 写法 |
-|------|------|
+| 品牌全称 | 常用简称 |
+|---------|---------|
 | Claude | A社 |
 | Claude Code | CC |
 | OpenAI | O社 |
-| Telegram | 电报 |
-| VPN | 隐私工具 |
+| Google | G社 |
+| GPT | GPT |
 
 **平台合规（血泪教训）：**
 
@@ -85,7 +85,7 @@ tags:
 | 段落长度 | ≤3行 |
 | 表格 | 每1000字≥2张 |
 | 结尾 | 反问+回扣标题 |
-| 品牌脱敏 | 全部完成 |
+| 品牌简称 | 全部完成 |
 | 个人经历标注 | ≥1处[📝] |
 | 文内URL | 0个 |
 
@@ -131,6 +131,8 @@ ilang.cn/md（MD → 微信格式 → 一键复制）
 微信公众号发布
 ```
 
+**排版工具：** [ilang.cn/md](https://ilang.cn/md) — 粘贴MD，预览微信样式，一键复制到微信编辑器。
+
 ---
 
 ## 不做的事
@@ -150,7 +152,7 @@ ilang.cn/md（MD → 微信格式 → 一键复制）
 |------|------|
 | WeChat-Awesome（本技能）| 素材 → 爆文结构 + MD + 封面提示词 |
 | [DeAI](../DeAI/SKILL.md) | 去AI味编辑 |
-| ilang.cn/md（计划中）| MD → 微信格式 → 一键复制 |
+| [ilang.cn/md](https://ilang.cn/md) | MD → 微信格式 → 一键复制 |
 | [AutoCode](https://github.com/ilang-ai/autocode) | Claude Code技能包 |
 | [I-Lang协议](https://ilang.ai) | AI通信协议 |
 
