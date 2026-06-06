@@ -124,7 +124,7 @@ tags:
 第6步  输出MD → 排版 → 一键复制到微信编辑器
 ```
 
-**排版工具：** <a href="https://ilang.cn/md" target="_blank">ilang.cn/md</a> — 纯前端页面，内容仅在你的浏览器本地处理，不上传到任何服务器。
+**排版工具：** [ilang.cn/md](https://ilang.cn/md) — 纯前端页面，内容仅在你的浏览器本地处理，不上传到任何服务器。
 
 如需去AI味处理，初稿完成后使用 DeAI 技能（同一AI会话内的文本编辑技能，不涉及外部数据传输）。
 
@@ -164,9 +164,9 @@ ilang.cn/md（纯前端排版，一键复制到微信编辑器）
 |------|------|
 | WeChat-Awesome（本技能）| 素材 → 爆文结构 + MD + 封面提示词 |
 | DeAI | 去AI味编辑（同一会话内处理）|
-| <a href="https://ilang.cn/md" target="_blank">ilang.cn/md</a> | MD → 微信格式 → 一键复制（纯前端）|
-| <a href="https://github.com/ilang-ai/autocode" target="_blank">AutoCode</a> | Claude Code 38+技能包 |
-| <a href="https://ilang.ai" target="_blank">I-Lang协议</a> | AI通信协议 |
+| [ilang.cn/md](https://ilang.cn/md) | MD → 微信格式 → 一键复制（纯前端）|
+| [AutoCode](https://github.com/ilang-ai/autocode) | Claude Code 38+技能包 |
+| [I-Lang协议](https://ilang.ai) | AI通信协议 |
 
 ---
 
