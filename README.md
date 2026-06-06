@@ -1,7 +1,7 @@
 # I-Lang OpenClaw — Skills + Plugins
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Skills](https://img.shields.io/badge/Skills-7%20Published-blue)](#skills)
+[![Skills](https://img.shields.io/badge/Skills-8%20Published-blue)](#skills)
 [![Plugins](https://img.shields.io/badge/Plugins-1%20Published-blue)](#plugins)
 [![Protocol](https://img.shields.io/badge/I--Lang-v4.0-purple)](https://ilang.ai)
 
@@ -18,6 +18,7 @@ ilang-openclaw/
 ├── skills/              ← Text-only skills (SKILL.md + prompt.md)
 │   ├── freemoney/       ← 白拿钱 — US class action settlement tracker
 │   ├── DeAI/            ← Remove AI fingerprint from text (4 languages)
+│   ├── WeChat-Awesome/  ← 微信公众号写作助手（纯中文）
 │   ├── lazarus/         ← Bring dead websites back to life
 │   ├── everything-is-ok/← Universal prompt compression
 │   ├── no-prompt/       ← AI writes prompts for you
@@ -32,17 +33,25 @@ ilang-openclaw/
 
 ## Skills
 
-### DeAI `v1.1.0` -- Make AI Drafts Sound Like You / 去AI味引擎
+### DeAI `v1.1.3` -- Make AI Drafts Sound Like You / 去AI味引擎
 
-Three-layer deAI: clean filler phrases, mark positions for authentic voice, restructure for natural rhythm. Supports Chinese, English, Japanese, Korean. Pairs with detect.ilang.cn for verification.
+Three-layer DeAI: clean filler phrases, mark positions for authentic voice, restructure for natural rhythm. Supports Chinese, English, Japanese, Korean.
 
 [**Install on ClawHub**](https://clawhub.ai/adsorgcn/DeAI) | [**Details**](./skills/DeAI/SKILL.md)
 
 ---
 
+### WeChat-Awesome `v1.0.0` -- 微信公众号写作助手
+
+素材→爆文结构重组→MD文件→封面图I-Lang提示词。内置品牌脱敏、平台合规、自查清单。纯中文。
+
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/WeChat-Awesome) | [**Details**](./skills/WeChat-Awesome/SKILL.md)
+
+---
+
 ### freemoney `v1.3.0` -- 白拿钱 (Free Money)
 
-Track 60+ open US class action settlements. Filter no-proof cases. Chinese interface.
+Track open class action settlements in US, Canada, UK, Australia. Filter no-proof cases. Chinese interface.
 
 [**Install on ClawHub**](https://clawhub.ai/adsorgcn/freemoney) | [**Details**](./skills/freemoney/SKILL.md)
 
