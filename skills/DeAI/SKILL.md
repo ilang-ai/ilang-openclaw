@@ -1,6 +1,6 @@
 ---
 name: DeAI
-version: 1.1.0
+version: 1.1.1
 description: "DeAI — Improve AI-drafted text to sound naturally human. Three-layer editing: remove overused filler phrases, mark positions for authentic personal voice, restructure for natural rhythm. Supports Chinese, English, Japanese, Korean. Writing quality tool, not a content generator."
 author: ilang-ai
 homepage: https://ilang.ai
