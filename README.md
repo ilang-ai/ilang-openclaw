@@ -37,7 +37,7 @@ ilang-openclaw/
 
 Three-layer DeAI: clean filler phrases, mark positions for authentic voice, restructure for natural rhythm. Supports Chinese, English, Japanese, Korean.
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/DeAI) | [**Details**](./skills/DeAI/SKILL.md)
+<a href="https://clawhub.ai/adsorgcn/DeAI" target="_blank"><strong>Install on ClawHub</strong></a> | [**Details**](./skills/DeAI/SKILL.md)
 
 ---
 
@@ -45,7 +45,7 @@ Three-layer DeAI: clean filler phrases, mark positions for authentic voice, rest
 
 素材→爆文结构重组→MD文件→封面图I-Lang提示词。内置品牌脱敏、平台合规、自查清单。纯中文。
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/WeChat-Awesome) | [**Details**](./skills/WeChat-Awesome/SKILL.md)
+<a href="https://clawhub.ai/adsorgcn/WeChat-Awesome" target="_blank"><strong>Install on ClawHub</strong></a> | [**Details**](./skills/WeChat-Awesome/SKILL.md)
 
 ---
 
@@ -53,7 +53,7 @@ Three-layer DeAI: clean filler phrases, mark positions for authentic voice, rest
 
 Track open class action settlements in US, Canada, UK, Australia. Filter no-proof cases. Chinese interface.
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/freemoney) | [**Details**](./skills/freemoney/SKILL.md)
+<a href="https://clawhub.ai/adsorgcn/freemoney" target="_blank"><strong>Install on ClawHub</strong></a> | [**Details**](./skills/freemoney/SKILL.md)
 
 ---
 
@@ -61,31 +61,31 @@ Track open class action settlements in US, Canada, UK, Australia. Filter no-proo
 
 Recover Google-indexed content from defunct websites via Wayback Machine. Pairs with AutoCode for one-click deployment.
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/lazarus) | [**Details**](./skills/lazarus/SKILL.md)
+<a href="https://clawhub.ai/adsorgcn/lazarus" target="_blank"><strong>Install on ClawHub</strong></a> | [**Details**](./skills/lazarus/SKILL.md)
 
 ---
 
 ### everything-is-ok `v1.0.4` -- Universal Prompt Compression
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/everything-is-ok) | [**Details**](./skills/everything-is-ok/SKILL.md)
+<a href="https://clawhub.ai/adsorgcn/everything-is-ok" target="_blank"><strong>Install on ClawHub</strong></a> | [**Details**](./skills/everything-is-ok/SKILL.md)
 
 ---
 
 ### no-prompt `v1.0.2` -- AI Writes Prompts For You
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/no-prompt) | [**Details**](./skills/no-prompt/SKILL.md)
+<a href="https://clawhub.ai/adsorgcn/no-prompt" target="_blank"><strong>Install on ClawHub</strong></a> | [**Details**](./skills/no-prompt/SKILL.md)
 
 ---
 
 ### less-token `v1.0.4` -- Compress Prompts
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/less-token) | [**Details**](./skills/less-token/SKILL.md)
+<a href="https://clawhub.ai/adsorgcn/less-token" target="_blank"><strong>Install on ClawHub</strong></a> | [**Details**](./skills/less-token/SKILL.md)
 
 ---
 
 ### ilang-compress `v2.3.2` -- Original Compression Engine
 
-[**Install on ClawHub**](https://clawhub.ai/adsorgcn/ilang-compress) | [**Details**](./skills/ilang-compress/SKILL.md)
+<a href="https://clawhub.ai/adsorgcn/ilang-compress" target="_blank"><strong>Install on ClawHub</strong></a> | [**Details**](./skills/ilang-compress/SKILL.md)
 
 ---
 
@@ -127,10 +127,10 @@ Push to `main` triggers auto-publish:
 
 | Resource | Link |
 |----------|------|
-| I-Lang Protocol | [ilang.ai](https://ilang.ai) |
-| AutoCode | [ilang-ai/autocode](https://github.com/ilang-ai/autocode) |
-| Imprint | [ilang-ai/Imprint](https://github.com/ilang-ai/Imprint) |
-| ClawHub Publisher | [clawhub.ai/adsorgcn](https://clawhub.ai/adsorgcn) |
+| I-Lang Protocol | <a href="https://ilang.ai" target="_blank">ilang.ai</a> |
+| AutoCode | <a href="https://github.com/ilang-ai/autocode" target="_blank">ilang-ai/autocode</a> |
+| Imprint | <a href="https://github.com/ilang-ai/Imprint" target="_blank">ilang-ai/Imprint</a> |
+| ClawHub Publisher | <a href="https://clawhub.ai/adsorgcn" target="_blank">clawhub.ai/adsorgcn</a> |
 
 ---
 
