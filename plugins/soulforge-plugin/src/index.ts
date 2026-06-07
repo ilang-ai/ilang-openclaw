@@ -250,7 +250,7 @@ Output only the I-Lang format above. Fill WHY and EVIDENCE for each GENE when po
 Execute the prompt below with your current model.
 
 After execution, pass the I-Lang GENE output to soulforge_write:
-  content: 蒸馏输出的完整SOUL内容
+  content: the complete SOUL output
   source: "${source}"
 
 ---
@@ -259,52 +259,73 @@ ${prompt}`);
     },
   });
 
-  // ========== 工具3：预览+确认+写文件（不调LLM） ==========
+  // ========== Tool 3: preview + confirm + write file (no LLM) ==========
+  const previewTokens = new Map<string, string>(); // source → content hash
+
   api.registerTool({
     name: "soulforge_write",
-    description: "Write SOUL.md: receives distilled SOUL content. When confirmed=false, returns a preview for the user to review. Only when the user explicitly confirms should the agent call again with confirmed=true to write. Backs up old file with timestamp. / 写入SOUL.md：confirmed=false返回预览，用户明确确认后agent才能传confirmed=true写入。",
+    description: "Write SOUL.md: receives distilled SOUL content. Call with confirmed=false first to get a preview and a preview_token. Then only after user explicitly confirms, call again with confirmed=true and the same preview_token. The token binds the write to a specific preview, preventing writes without prior user review. Backs up old file with timestamp.",
     parameters: {
       type: "object",
       properties: {
-        content: { type: "string", description: "Complete SOUL content in I-Lang GENE format / 蒸馏输出的SOUL内容" },
-        source: { type: "string", description: "Source name / 语料来源（人名）" },
-        confirmed: { type: "boolean", description: "false=preview for user review, true=user has confirmed, proceed to write / false=预览，true=用户已确认写入" },
+        content: { type: "string", description: "Complete SOUL content in I-Lang GENE format" },
+        source: { type: "string", description: "Source name (person name)" },
+        confirmed: { type: "boolean", description: "false=generate preview and token, true=write (requires valid preview_token)" },
+        preview_token: { type: "string", description: "Required when confirmed=true. The token returned from the preview step, proving user reviewed the content." },
       },
       required: ["content", "source"],
     },
-    execute: async (_toolCallId: string, params: { content: string; source: string; confirmed?: boolean }) => {
-      const { content, source, confirmed } = params;
+    execute: async (_toolCallId: string, params: { content: string; source: string; confirmed?: boolean; preview_token?: string }) => {
+      const { content, source, confirmed, preview_token } = params;
 
       if (!content || !content.trim()) {
-        return textResult("SOUL内容为空，无法写入。请检查蒸馏是否成功。");
+        return textResult("Content is empty. Please check if distillation succeeded. / 内容为空，请检查蒸馏是否成功。");
       }
 
       const soulPath = resolveSoulPath(api);
 
       if (!confirmed) {
-        log(api, "info", `Preview SOUL for "${source}", ${content.length} chars. User must confirm before write.`);
+        // Generate preview token (simple hash of content)
+        const token = Buffer.from(content.slice(0, 200)).toString("base64").slice(0, 32);
+        previewTokens.set(source, token);
+        log(api, "info", `Preview SOUL for "${source}", ${content.length} chars. Token: ${token}`);
 
-        return textResult(`【蒸馏预览】从「${source}」用三步法提取的表达DNA：
+        return textResult(`[Distillation Preview] Expression DNA extracted from "${source}":
 
 ${content}
 
-【写入信息】
-• 目标：${soulPath}
-• 备份：SOUL.md.bak.{时间戳}
+[Write Info]
+- Target: ${soulPath}
+- Backup: SOUL.md.bak.{timestamp}
+- Preview token: ${token}
 
-Confirm this style? If yes, call soulforge_write with confirmed=true. / 确认使用这个风格吗？确认后调用 soulforge_write(confirmed=true) 写入。`);
+To confirm, call soulforge_write with confirmed=true and preview_token="${token}".
+User must explicitly approve before proceeding.`);
       }
 
-      // 确认写入 — agent should only call this after user explicitly confirmed the preview
-      log(api, "info", `User confirmed. Writing SOUL for "${source}" to ${soulPath}`);
+      // Confirmed=true: verify preview token
+      const expectedToken = previewTokens.get(source);
+      if (!expectedToken) {
+        log(api, "warn", `Write rejected for "${source}": no preview token found. Preview step was skipped.`);
+        return textResult("Write rejected: no preview was generated for this source. Call soulforge_write with confirmed=false first to generate a preview. / 写入被拒绝：未找到预览记录，请先以confirmed=false生成预览。");
+      }
+
+      if (preview_token !== expectedToken) {
+        log(api, "warn", `Write rejected for "${source}": token mismatch. Expected ${expectedToken}, got ${preview_token}`);
+        return textResult("Write rejected: preview_token does not match. The content may have changed since the preview. Please regenerate the preview. / 写入被拒绝：token不匹配，请重新预览。");
+      }
+
+      // Token verified, proceed to write
+      log(api, "info", `Token verified. Writing SOUL for "${source}" to ${soulPath}`);
+      previewTokens.delete(source);
       const { success, backedUp, backupPath, error } = backupAndWrite(soulPath, content);
 
       if (success) {
-        const bMsg = backedUp ? `\n旧版本备份：${backupPath}` : "";
-        return textResult(`你的写作风格已经跟${source}一致，随时可以再次替换为其他风格。${bMsg}\n写入：${soulPath}`);
+        const bMsg = backedUp ? `\nOld version backed up to: ${backupPath}` : "";
+        return textResult(`Style updated to match ${source}. You can replace it anytime by distilling another person.${bMsg}\nWritten to: ${soulPath}`);
       }
 
-      return textResult(`写入失败：${error}\n\n请手动保存到 ${soulPath}：\n\n${content}`);
+      return textResult(`Write failed: ${error}\n\nPlease save manually to ${soulPath}:\n\n${content}`);
     },
   });
 }
