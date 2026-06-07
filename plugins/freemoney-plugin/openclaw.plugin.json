@@ -2,11 +2,28 @@
   "id": "@adsorgcn/freemoney-plugin",
   "name": "@adsorgcn/freemoney-plugin",
   "displayName": "白拿钱 (Free Money)",
-  "description": "US class action settlement tracker. Queries api.ilang.ai for open claims, filters no-proof settlements, and pushes daily updates to your channel.",
+  "description": "US/CA/UK/AU class action settlement tracker. Queries api.ilang.ai for open claims, filters no-proof settlements, and pushes daily updates.",
   "version": "1.0.0",
   "author": "ilang-ai",
   "homepage": "https://ilang.ai",
   "entryPoint": "dist/index.js",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "enabled": {
+        "type": "boolean",
+        "default": true,
+        "description": "Enable or disable the plugin"
+      },
+      "dailyPush": {
+        "type": "boolean",
+        "default": false,
+        "description": "Enable daily new settlement notifications at 9am"
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
   "tools": [
     {
       "name": "query_claims",
