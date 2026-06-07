@@ -1,7 +1,7 @@
 {
   "name": "@adsorgcn/soulforge-plugin",
-  "version": "4.0.0",
-  "description": "SoulForge — 灵魂打印机。输入人名或语料，输出soul.md。蒸馏任何人的写作风格，一键覆盖你的OpenClaw人设。",
+  "version": "4.0.1",
+  "description": "Writing style analysis plugin. Uses three-step method (observe facts, deduce traits, verify with corpus) to extract expression DNA. Plugin generates prompts only; agent runs analysis with its own model. User reviews and confirms before any file write.",
   "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,7 +9,15 @@
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
-  "keywords": ["openclaw", "plugin", "soul", "persona", "distill", "writing-style", "ilang"],
+  "keywords": [
+    "openclaw",
+    "plugin",
+    "soul",
+    "persona",
+    "distill",
+    "writing-style",
+    "ilang"
+  ],
   "author": "iLang Inc. <contact@ilang.ai>",
   "license": "MIT",
   "homepage": "https://ilang.ai",
@@ -19,7 +27,9 @@
     "directory": "plugins/soulforge-plugin"
   },
   "openclaw": {
-    "extensions": ["./dist/index.js"],
+    "extensions": [
+      "./dist/index.js"
+    ],
     "compat": {
       "pluginApi": ">=2026.3.24-beta.2"
     },

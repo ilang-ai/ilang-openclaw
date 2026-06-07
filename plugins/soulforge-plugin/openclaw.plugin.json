@@ -2,8 +2,8 @@
   "id": "@adsorgcn/soulforge-plugin",
   "name": "@adsorgcn/soulforge-plugin",
   "displayName": "SoulForge 灵魂打印机",
-  "description": "三步法蒸馏写作风格。plugin不调用LLM，只生成prompt和写文件。agent用自己的模型执行蒸馏。",
-  "version": "4.0.0",
+  "description": "Writing style analysis using three-step method. Plugin generates prompts and handles file I/O only; agent executes analysis with its own model. All writes require explicit user confirmation with preview. / 三步法写作风格分析。plugin只生成prompt和处理文件，agent用自己的模型执行分析。所有写入需用户预览后确认。",
+  "version": "4.0.1",
   "author": "ilang-ai",
   "homepage": "https://ilang.ai",
   "entryPoint": "dist/index.js",
@@ -11,7 +11,11 @@
     "onStartup": true
   },
   "contracts": {
-    "tools": ["soulforge_distill_search", "soulforge_distill_corpus", "soulforge_write"]
+    "tools": [
+      "soulforge_distill_search",
+      "soulforge_distill_corpus",
+      "soulforge_write"
+    ]
   },
   "configSchema": {
     "type": "object",
