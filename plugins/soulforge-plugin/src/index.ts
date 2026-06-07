@@ -1,7 +1,10 @@
 /**
- * SoulForge — 灵魂打印机 v2.2
+ * SoulForge — 灵魂打印机 v2.3
  *
- * v2.2: 修复搜索链路，直接调用webSearch API，不吞错误
+ * v2.3: 学习花叔女娲的方式，不在plugin代码里调搜索API。
+ *       distill_search 返回结构化搜索任务，让agent自己搜。
+ *       agent搜完后把文本传给 distill_corpus 蒸馏。
+ *       plugin只做两件事：蒸馏+写文件。
  *
  * © 2026 iLang Inc., Canada. MIT License.
  */
@@ -41,11 +44,9 @@ ${corpus}
 [DATE:${today}]
 
 ::GENE{opening|style:____}
-  T:分析此人的开头习惯
+  T:此人的开头习惯
 
 ::GENE{vocabulary|fingerprint:____,____,____|never:____,____}
-  fingerprint：高频特征词/口头禅
-  never：从不使用的表达
 
 ::GENE{rhythm|avg_para_lines:____|pattern:____}
 
@@ -63,25 +64,20 @@ ${corpus}
 function resolveSoulPath(api: any): string {
   try {
     if (api?.runtime?.agent?.resolveAgentWorkspaceDir) {
-      const workspaceDir = api.runtime.agent.resolveAgentWorkspaceDir(api.config);
-      return join(workspaceDir, "SOUL.md");
+      return join(api.runtime.agent.resolveAgentWorkspaceDir(api.config), "SOUL.md");
     }
   } catch (err) {
     log(api, "warn", "resolveAgentWorkspaceDir failed", err);
   }
-  const workspacePath = join(homedir(), ".openclaw", "workspace", "SOUL.md");
-  if (existsSync(join(homedir(), ".openclaw", "workspace"))) {
-    return workspacePath;
-  }
+  const wsPath = join(homedir(), ".openclaw", "workspace", "SOUL.md");
+  if (existsSync(join(homedir(), ".openclaw", "workspace"))) return wsPath;
   return join(homedir(), ".openclaw", "SOUL.md");
 }
 
 function backupAndWrite(api: any, soulPath: string, content: string): { success: boolean; backedUp: boolean; backupPath: string } {
   try {
     const dir = join(soulPath, "..");
-    if (!existsSync(dir)) {
-      mkdirSync(dir, { recursive: true });
-    }
+    if (!existsSync(dir)) mkdirSync(dir, { recursive: true });
     let backedUp = false;
     let backupPath = "";
     if (existsSync(soulPath)) {
@@ -102,177 +98,48 @@ function textResult(text: string) {
   return { content: [{ type: "text" as const, text }] };
 }
 
-// 不吞错误的日志
 function log(api: any, level: string, msg: string, err?: any) {
-  const logFn = api?.logger?.[level] || api?.logger?.info || console.log;
-  if (err) {
-    logFn(`[SoulForge] ${msg}: ${String(err)}`);
-  } else {
-    logFn(`[SoulForge] ${msg}`);
-  }
+  const fn = api?.logger?.[level] || api?.logger?.info || console.log;
+  fn(err ? `[SoulForge] ${msg}: ${String(err)}` : `[SoulForge] ${msg}`);
 }
 
-/**
- * 直接调用 webSearch API 搜索多个关键词
- * 不依赖 embedded agent，不猜参数
- */
-async function searchCorpus(api: any, name: string): Promise<{ corpus: string; errors: string[] }> {
-  const queries = [
-    `${name} 文章`,
-    `${name} 演讲 原文`,
-    `${name} 语录`,
-    `${name} 访谈`,
-    `${name} 观点`,
-  ];
-
-  const errors: string[] = [];
-  const results: string[] = [];
-
-  // 方案1：api.runtime.webSearch.search
-  if (api?.runtime?.webSearch?.search) {
-    log(api, "info", "Using api.runtime.webSearch.search");
-    for (const q of queries) {
-      try {
-        const res = await api.runtime.webSearch.search(q);
-        const text = extractSearchText(res);
-        if (text) results.push(`--- 搜索：${q} ---\n${text}`);
-      } catch (err) {
-        errors.push(`webSearch.search("${q}"): ${String(err)}`);
-      }
-    }
-    if (results.length > 0) {
-      return { corpus: results.join("\n\n"), errors };
-    }
-  }
-
-  // 方案2：api.tools.callTool("web_search", ...)
-  if (api?.tools?.callTool) {
-    log(api, "info", "Fallback to api.tools.callTool('web_search')");
-    for (const q of queries) {
-      try {
-        const res = await api.tools.callTool("web_search", { query: q });
-        const text = extractSearchText(res);
-        if (text) results.push(`--- 搜索：${q} ---\n${text}`);
-      } catch (err) {
-        errors.push(`tools.callTool("web_search", "${q}"): ${String(err)}`);
-      }
-    }
-    if (results.length > 0) {
-      return { corpus: results.join("\n\n"), errors };
-    }
-  }
-
-  // 方案3：api.runtime.agent.runEmbeddedAgent（按文档参数格式）
-  if (api?.runtime?.agent?.runEmbeddedAgent) {
-    log(api, "info", "Fallback to runEmbeddedAgent");
-    try {
-      const prompt = `请搜索以下关键词并返回所有搜索到的文本内容：
-${queries.map((q, i) => `${i + 1}. ${q}`).join("\n")}
-
-请把搜索到的所有文章原文、语录、演讲内容合并输出，越多越好。只输出原文内容，不要分析。`;
-
-      const res = await api.runtime.agent.runEmbeddedAgent({
-        prompt,
-        timeoutMs: 120000,
-      });
-      const text = extractTextFromResult(res);
-      if (text && text.length > 100) {
-        return { corpus: text, errors };
-      }
-      errors.push(`runEmbeddedAgent returned ${text?.length || 0} chars`);
-    } catch (err) {
-      errors.push(`runEmbeddedAgent: ${String(err)}`);
-    }
-  }
-
-  // 所有方案都失败
-  if (!api?.runtime?.webSearch?.search && !api?.tools?.callTool && !api?.runtime?.agent?.runEmbeddedAgent) {
-    errors.push("没有可用的搜索接口：webSearch.search / tools.callTool / runEmbeddedAgent 均不存在");
-  }
-
-  return { corpus: "", errors };
-}
-
-function extractSearchText(res: any): string {
-  if (!res) return "";
-  if (typeof res === "string") return res;
-  // 搜索结果可能是数组
-  if (Array.isArray(res)) {
-    return res.map((r: any) => r.snippet || r.text || r.content || r.title || "").join("\n");
-  }
-  // 搜索结果可能有 results 字段
-  if (res.results && Array.isArray(res.results)) {
-    return res.results.map((r: any) => `${r.title || ""}\n${r.snippet || r.text || r.content || ""}`).join("\n\n");
-  }
-  // content 数组
-  if (res.content && Array.isArray(res.content)) {
-    return res.content.filter((b: any) => b.type === "text").map((b: any) => b.text).join("\n");
-  }
-  if (res.text) return res.text;
-  if (res.content && typeof res.content === "string") return res.content;
-  return "";
-}
-
-function extractTextFromResult(result: any): string {
-  if (!result) return "";
-  if (typeof result === "string") return result;
-  if (result.content && Array.isArray(result.content)) {
-    return result.content.filter((b: any) => b.type === "text").map((b: any) => b.text).join("\n");
-  }
-  if (result.text) return result.text;
-  return "";
-}
-
-/**
- * LLM调用（纯分析，不带工具）
- */
 async function callLLM(api: any, prompt: string): Promise<string> {
   if (api?.runtime?.agent?.runEmbeddedAgent) {
     try {
-      const result = await api.runtime.agent.runEmbeddedAgent({
-        prompt,
-        timeoutMs: 60000,
-      });
-      return extractTextFromResult(result);
-    } catch (err) {
-      log(api, "warn", "runEmbeddedAgent for distill failed", err);
-    }
+      const res = await api.runtime.agent.runEmbeddedAgent({ prompt, timeoutMs: 60000 });
+      return extractText(res);
+    } catch (err) { log(api, "warn", "runEmbeddedAgent failed", err); }
   }
-
   if (api?.llm?.complete) {
     try {
-      const result = await api.llm.complete({
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.3,
-      });
-      return result?.content || result?.text || extractTextFromResult(result);
-    } catch (err) {
-      log(api, "warn", "llm.complete failed", err);
-    }
+      const res = await api.llm.complete({ messages: [{ role: "user", content: prompt }], temperature: 0.3 });
+      return res?.content || res?.text || extractText(res);
+    } catch (err) { log(api, "warn", "llm.complete failed", err); }
   }
-
   return "";
+}
+
+function extractText(r: any): string {
+  if (!r) return "";
+  if (typeof r === "string") return r;
+  if (r.content && Array.isArray(r.content)) return r.content.filter((b: any) => b.type === "text").map((b: any) => b.text).join("\n");
+  return r.text || "";
 }
 
 export default function register(api: any) {
   const samplingSize = api?.pluginConfig?.samplingSize || SAMPLING_DEFAULT;
+  log(api, "info", `SoulForge v2.3 loaded. samplingSize=${samplingSize}`);
 
-  log(api, "info", `SoulForge v2.2 loaded. samplingSize=${samplingSize}`);
-  log(api, "info", `webSearch available: ${!!api?.runtime?.webSearch?.search}`);
-  log(api, "info", `tools.callTool available: ${!!api?.tools?.callTool}`);
-  log(api, "info", `runEmbeddedAgent available: ${!!api?.runtime?.agent?.runEmbeddedAgent}`);
-  log(api, "info", `llm.complete available: ${!!api?.llm?.complete}`);
-
-  // ========== 语料模式 ==========
+  // ========== 语料模式：用户粘贴文本或agent传入搜索结果 ==========
   api.registerTool({
     name: "soulforge_distill_corpus",
-    description: "语料模式蒸馏：用户粘贴文本，蒸馏写作风格。展示预览，用户确认后写入SOUL.md（自动备份）。",
+    description: "蒸馏写作风格：接收文本语料（用户粘贴或agent搜索采集的结果），提取表达指纹，展示预览，用户确认后写入SOUL.md。",
     parameters: {
       type: "object",
       properties: {
-        text: { type: "string", description: "用户粘贴的文本内容。" },
-        source: { type: "string", description: "语料来源描述（文件名或人名）" },
-        confirmed: { type: "boolean", description: "false=预览，true=确认写入。" },
+        text: { type: "string", description: "文本语料内容" },
+        source: { type: "string", description: "语料来源（文件名或人名）" },
+        confirmed: { type: "boolean", description: "false=预览，true=确认写入" },
       },
       required: ["text", "source"],
     },
@@ -280,134 +147,90 @@ export default function register(api: any) {
       const { text, source, confirmed } = params;
 
       if (!text || text.trim().length < 500) {
-        return textResult("语料太短（不足500字），无法蒸馏出可靠的写作风格。请提供更多内容。");
+        return textResult("语料太短（不足500字），请提供更多内容。如果是搜索模式，请先用WebSearch采集更多资料再传入。");
       }
 
       const cacheKey = `corpus_${source}`;
 
       if (!confirmed) {
-        log(api, "info", `Distilling corpus from "${source}", ${text.length} chars`);
+        log(api, "info", `Distilling "${source}", ${text.length} chars`);
         const sampled = sampleCorpus(text, samplingSize);
-        const prompt = buildDistillPrompt(sampled, source);
-        const soulContent = await callLLM(api, prompt);
+        const soulContent = await callLLM(api, buildDistillPrompt(sampled, source));
 
         if (!soulContent.includes("::ILANG::v4.0")) {
-          return textResult(`蒸馏失败：LLM输出格式不符合预期。\n\n原始输出：\n${soulContent.slice(0, 500)}`);
+          return textResult(`蒸馏失败：LLM输出格式不符合预期。\n\n原始输出前500字：\n${soulContent.slice(0, 500)}`);
         }
 
         previewCache.set(cacheKey, soulContent);
         const soulPath = resolveSoulPath(api);
 
-        return textResult(`【数据说明】语料通过你配置的中转站发送给AI模型分析。处理方式取决于模型提供商的隐私政策。
+        return textResult(`【数据说明】语料通过你配置的中转站发送给AI模型分析。
 
 【蒸馏预览】从「${source}」提取的写作风格：
 
 ${soulContent}
 
 【写入信息】
-• 目标路径：${soulPath}
-• 备份策略：SOUL.md.bak.{时间戳}
+• 目标：${soulPath}
+• 备份：SOUL.md.bak.{时间戳}
 
-确认使用这个风格吗？回复"确认"执行写入。`);
+确认？回复"确认"写入。`);
       }
 
-      const cachedContent = previewCache.get(cacheKey);
-      if (!cachedContent) return textResult("未找到预览内容，请重新运行蒸馏。");
+      const cached = previewCache.get(cacheKey);
+      if (!cached) return textResult("未找到预览内容，请重新蒸馏。");
 
       const soulPath = resolveSoulPath(api);
-      const { success, backedUp, backupPath } = backupAndWrite(api, soulPath, cachedContent);
+      const { success, backedUp, backupPath } = backupAndWrite(api, soulPath, cached);
       previewCache.delete(cacheKey);
 
       if (success) {
-        const backupMsg = backedUp ? `\n旧版本已备份为：${backupPath}` : "";
-        return textResult(`你的写作风格已经跟${source}一致，随时可以再次替换为其他风格。${backupMsg}\n\n写入路径：${soulPath}`);
-      } else {
-        return textResult(`写入SOUL.md失败。请手动保存到 ${soulPath}：\n\n${cachedContent}`);
+        const bMsg = backedUp ? `\n旧版本备份：${backupPath}` : "";
+        return textResult(`你的写作风格已经跟${source}一致，随时可以再次替换为其他风格。${bMsg}\n写入：${soulPath}`);
       }
+      return textResult(`写入失败。请手动保存到 ${soulPath}：\n\n${cached}`);
     },
   });
 
-  // ========== 搜索模式 ==========
+  // ========== 搜索模式：返回搜索任务，让agent自己搜 ==========
   api.registerTool({
     name: "soulforge_distill_search",
-    description: "搜索模式蒸馏：输入人名，自动搜索此人的公开文章和发言，蒸馏写作风格。展示预览，用户确认后写入SOUL.md。需要安装后在配置中添加 tools.alsoAllow: ['@adsorgcn/soulforge-plugin']。",
+    description: "搜索蒸馏模式：输入人名，返回结构化搜索任务。你（agent）执行搜索采集后，把结果传给 soulforge_distill_corpus 完成蒸馏。",
     parameters: {
       type: "object",
       properties: {
         name: { type: "string", description: "要蒸馏的人物名称" },
-        confirmed: { type: "boolean", description: "false=搜索+蒸馏+预览，true=确认写入。" },
       },
       required: ["name"],
     },
-    execute: async (_toolCallId: string, params: { name: string; confirmed?: boolean }) => {
-      const { name, confirmed } = params;
-      const cacheKey = `search_${name}`;
+    execute: async (_toolCallId: string, params: { name: string }) => {
+      const { name } = params;
+      log(api, "info", `Search mode initiated for "${name}"`);
 
-      if (!confirmed) {
-        log(api, "info", `Search mode: distilling "${name}"`);
+      return textResult(`【SoulForge 搜索蒸馏任务】
 
-        // 第一阶段：搜索采集
-        const { corpus, errors } = await searchCorpus(api, name);
+目标人物：${name}
 
-        if (errors.length > 0) {
-          log(api, "warn", `Search errors: ${errors.join("; ")}`);
-        }
+请你（agent）执行以下搜索任务，采集此人的写作语料：
 
-        if (!corpus || corpus.trim().length < 500) {
-          const errorDetail = errors.length > 0
-            ? `\n\n【调试信息】搜索过程中的错误：\n${errors.map(e => `• ${e}`).join("\n")}`
-            : "";
-          return textResult(`搜索「${name}」的公开资料不足（采集到${corpus?.length || 0}字，需要至少500字）。
+第1轮搜索：「${name} 文章」—— 提取此人写的长文、博客、专栏原文
+第2轮搜索：「${name} 演讲 原文」—— 提取演讲稿、讲话全文
+第3轮搜索：「${name} 语录」—— 提取高频表达、金句、口头禅
+第4轮搜索：「${name} 访谈」—— 提取对话、问答、即兴回应
+第5轮搜索：「${name} 观点」—— 提取核心主张、争议立场
 
-可能的原因：
-• 搜索接口未配置或不可用
-• 搜索结果被过滤
-• 此人公开文章较少
+每轮搜索后，提取正文内容（不要只取标题和摘要）。如果搜索结果中有文章链接，用WebFetch读取全文。
 
-建议：手动收集此人的文章/语录，然后用 soulforge_distill_corpus 蒸馏。${errorDetail}`);
-        }
+信息源排除：不使用知乎、百度百科内容。优先使用此人本人的文章、演讲原文、书籍片段。
 
-        log(api, "info", `Collected ${corpus.length} chars for "${name}", distilling...`);
+采集完成后：
+1. 把所有搜索到的文本合并（用"---"分隔不同来源）
+2. 调用 soulforge_distill_corpus 工具，参数：
+   - text: 合并后的全部文本
+   - source: "${name}"
+   - confirmed: false
 
-        // 第二阶段：蒸馏
-        const sampled = sampleCorpus(corpus, samplingSize);
-        const distillPrompt = buildDistillPrompt(sampled, name);
-        const soulContent = await callLLM(api, distillPrompt);
-
-        if (!soulContent.includes("::ILANG::v4.0")) {
-          return textResult(`搜索到了「${name}」的语料（${corpus.length}字），但蒸馏失败。\n\nLLM输出：\n${soulContent.slice(0, 500)}`);
-        }
-
-        previewCache.set(cacheKey, soulContent);
-        const soulPath = resolveSoulPath(api);
-
-        return textResult(`【搜索完成】采集到「${name}」的公开资料 ${corpus.length} 字。
-
-【蒸馏预览】
-
-${soulContent}
-
-【写入信息】
-• 目标路径：${soulPath}
-• 备份策略：SOUL.md.bak.{时间戳}
-
-确认使用这个风格吗？回复"确认"执行写入。`);
-      }
-
-      // 确认写入
-      const cachedContent = previewCache.get(cacheKey);
-      if (!cachedContent) return textResult("未找到预览内容，请重新运行蒸馏。");
-
-      const soulPath = resolveSoulPath(api);
-      const { success, backedUp, backupPath } = backupAndWrite(api, soulPath, cachedContent);
-      previewCache.delete(cacheKey);
-
-      if (success) {
-        const backupMsg = backedUp ? `\n旧版本已备份为：${backupPath}` : "";
-        return textResult(`你的写作风格已经跟${name}一致，随时可以再次替换为其他风格。${backupMsg}\n\n写入路径：${soulPath}`);
-      } else {
-        return textResult(`写入SOUL.md失败。请手动保存到 ${soulPath}：\n\n${cachedContent}`);
-      }
+目标：采集至少5000字语料。语料越多蒸馏越准。`);
     },
   });
 }
