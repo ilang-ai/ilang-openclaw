@@ -91,3 +91,17 @@ I-Lang GENE格式，自动写入 `~/.openclaw/soul.md`：
 ## 许可
 
 MIT — © 2026 iLang Inc., Canada
+
+## 安装后配置
+
+安装插件后，需要在 OpenClaw 配置中放行插件工具：
+
+```json
+{
+  "tools": {
+    "alsoAllow": ["@adsorgcn/soulforge-plugin"]
+  }
+}
+```
+
+否则 agent 不会调用插件工具。
