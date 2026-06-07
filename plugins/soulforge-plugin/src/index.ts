@@ -121,9 +121,9 @@ export default function register(api: any) {
       const sampled = sampleCorpus(text);
 
       // 隐私声明
-      const privacyNotice = `【数据说明】你提供的语料将发送给AI模型进行风格分析。分析过程中：
-• 语料仅用于本次蒸馏，不会被存储到任何外部服务器
-• 蒸馏结果（soul.md）仅保存在你本机 ~/.openclaw/ 目录
+      const privacyNotice = `【数据说明】你提供的语料将发送给你配置的AI模型进行风格分析。
+• 语料会通过你的中转站或API发送给模型处理，处理方式取决于你选择的模型提供商的隐私政策
+• 蒸馏结果（soul.md）保存在你本机 ~/.openclaw/ 目录
 • 如果你的语料包含敏感信息，建议先脱敏后再投喂`;
 
       const prompt = buildDistillPrompt(sampled, source);
@@ -192,7 +192,7 @@ ${soulContent}
 
 采集完成后，把所有文本内容汇总，然后调用 distill_corpus 工具进行蒸馏。
 
-【数据说明】采集到的文本将发送给AI模型进行风格分析，仅用于本次蒸馏，不会存储到外部服务器。蒸馏结果保存在你本机。
+【数据说明】采集到的文本将通过你配置的中转站发送给AI模型进行风格分析。处理方式取决于你选择的模型提供商的隐私政策。蒸馏结果保存在你本机。
 
 提示：
 • 如果你安装了 web-article-reader、agent-reach 等搜索类skill，可以直接使用

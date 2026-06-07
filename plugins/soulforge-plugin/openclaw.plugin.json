@@ -2,7 +2,7 @@
   "id": "@adsorgcn/soulforge-plugin",
   "name": "@adsorgcn/soulforge-plugin",
   "displayName": "SoulForge 灵魂打印机",
-  "description": "输入人名或语料，蒸馏写作风格。展示预览后经用户确认才写入soul.md，自动备份旧版本。语料仅用于本次分析，不存储到外部服务器。",
+  "description": "输入人名或语料，蒸馏写作风格。展示预览后经用户确认才写入soul.md，自动备份旧版本。语料通过用户配置的模型提供商进行分析。",
   "version": "1.0.2",
   "author": "ilang-ai",
   "homepage": "https://ilang.ai",
@@ -26,7 +26,7 @@
     },
     {
       "name": "distill_corpus",
-      "description": "语料模式蒸馏：从Drive读文件或用户粘贴文本，蒸馏写作风格。展示预览，用户确认后写入soul.md（自动备份旧版本）。语料仅发送给AI模型分析，不存储到外部服务器。"
+      "description": "语料模式蒸馏：从Drive读文件或用户粘贴文本，蒸馏写作风格。展示预览，用户确认后写入soul.md（自动备份旧版本）。语料通过用户配置的模型提供商进行分析。"
     }
   ],
   "permissions": {
