@@ -102,10 +102,10 @@ function log(api: any, level: string, msg: string, err?: any) {
 }
 
 /**
- * LLM调用 — 按龙虾工厂给的完整参数签名
+ * LLM调用 — 继承当前agent的provider和model
  */
 async function callLLM(api: any, prompt: string): Promise<string> {
-  // 方案1: runEmbeddedAgent 完整参数（OpenClaw 2026.5.4+）
+  // 方案1: runEmbeddedAgent（继承当前agent的模型配置）
   if (api?.runtime?.agent?.runEmbeddedAgent) {
     try {
       const cfg = api.config;
@@ -123,15 +123,37 @@ async function callLLM(api: any, prompt: string): Promise<string> {
       const sessionsDir = join(agentDir, "sessions");
       if (!existsSync(sessionsDir)) mkdirSync(sessionsDir, { recursive: true });
 
-      const res = await api.runtime.agent.runEmbeddedAgent({
+      // 继承当前agent的默认模型，不让它fallback到openai
+      const defaultModel =
+        api?.runtime?.agent?.defaults?.model ||
+        cfg?.agents?.defaults?.model ||
+        cfg?.models?.default ||
+        undefined;
+
+      const embeddedParams: any = {
         sessionId: `soulforge:${runId}`,
         runId,
         sessionFile: join(sessionsDir, `soulforge-${runId}.jsonl`),
         workspaceDir,
         prompt,
         timeoutMs,
-      });
+      };
 
+      // 尝试传model参数（具体字段名取决于SDK版本）
+      if (defaultModel) {
+        embeddedParams.model = defaultModel;
+        // 如果model格式是 "provider/model"，也拆开传
+        if (typeof defaultModel === "string" && defaultModel.includes("/")) {
+          const [provider, model] = defaultModel.split("/", 2);
+          embeddedParams.provider = provider;
+          embeddedParams.model = model;
+        }
+        log(api, "info", `Using model: ${defaultModel}`);
+      } else {
+        log(api, "warn", "No default model found in agent config, runEmbeddedAgent may use wrong provider");
+      }
+
+      const res = await api.runtime.agent.runEmbeddedAgent(embeddedParams);
       const text = extractText(res);
       log(api, "info", `runEmbeddedAgent returned ${text.length} chars`);
       return text;
@@ -155,7 +177,7 @@ async function callLLM(api: any, prompt: string): Promise<string> {
     }
   }
 
-  log(api, "error", "No LLM interface available (runEmbeddedAgent and llm.complete both missing/failed)");
+  log(api, "error", "No LLM interface available");
   return "";
 }
 
@@ -260,23 +282,28 @@ ${soulContent}
 
 目标人物：${name}
 
-请你（agent）执行以下搜索任务，采集此人的写作语料：
+请你（agent）按以下顺序采集此人的写作语料：
 
-第1轮搜索：「${name} 文章」—— 提取长文、博客、专栏原文
-第2轮搜索：「${name} 演讲 原文」—— 提取演讲稿、讲话全文
-第3轮搜索：「${name} 语录」—— 提取高频表达、金句
-第4轮搜索：「${name} 访谈」—— 提取对话、问答
-第5轮搜索：「${name} 观点」—— 提取核心主张
+**第一优先级：百科类（信息最集中）**
+第1轮搜索：「${name} 维基百科」—— 用WebFetch读取完整词条
+第2轮搜索：「${name} 百度百科」—— 用WebFetch读取完整词条
+这两篇通常就能拿到生平、著作列表、核心观点、代表性语录。
 
-每轮搜索后，提取正文内容。如有文章链接，用WebFetch读取全文。
-信息源排除：不使用知乎、百度百科。
+**第二优先级：一手语料**
+第3轮搜索：「${name} 原文 全文」—— 此人写的文章、书籍片段、演讲原文
+第4轮搜索：「${name} 语录 名言」—— 高频表达、口头禅、金句
+第5轮搜索：「${name} 访谈 对话」—— 问答、即兴回应
+
+每轮搜索后，用WebFetch读取搜索结果中的文章全文，不要只取标题和摘要。
+
+信息源排除：不使用知乎。百度百科可以用（事实性信息），但不用知乎（二手洗稿多）。
 
 采集完成后，调用 soulforge_distill_corpus：
   text: 全部文本（用---分隔不同来源）
   source: "${name}"
   confirmed: false
 
-目标：至少5000字语料。`);
+目标：至少5000字语料。百科词条通常就有3000-5000字，再加上原文语料就够了。`);
     },
   });
 }
