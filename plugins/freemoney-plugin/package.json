@@ -1,22 +1,15 @@
 {
   "name": "@adsorgcn/freemoney-plugin",
   "version": "1.0.0",
-  "description": "白拿钱 — US class action settlement tracker plugin for OpenClaw. Auto-queries api.ilang.ai for open settlements, filters no-proof claims, and pushes daily updates.",
+  "description": "白拿钱 — US/CA/UK/AU class action settlement tracker plugin for OpenClaw.",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "prepublishOnly": "npm run build"
   },
-  "keywords": [
-    "openclaw",
-    "plugin",
-    "settlement",
-    "claims",
-    "class-action",
-    "free-money",
-    "ilang"
-  ],
+  "keywords": ["openclaw", "plugin", "settlement", "claims", "ilang"],
   "author": "iLang Inc. <contact@ilang.ai>",
   "license": "MIT",
   "homepage": "https://ilang.ai",
@@ -26,17 +19,16 @@
     "directory": "plugins/freemoney-plugin"
   },
   "openclaw": {
+    "extensions": ["./dist/index.js"],
     "compat": {
-      "pluginApi": ">=5.0.0",
-      "minGatewayVersion": "5.0.0"
+      "pluginApi": ">=2026.3.24-beta.2"
     },
     "build": {
-      "openclawVersion": "5.4.0"
+      "openclawVersion": "2026.3.24-beta.2"
     },
     "metadata": {
       "emoji": "💰",
-      "category": "Data & APIs",
-      "trust": "community"
+      "category": "Data & APIs"
     }
   },
   "devDependencies": {
