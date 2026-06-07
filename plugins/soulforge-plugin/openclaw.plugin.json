@@ -3,7 +3,7 @@
   "name": "@adsorgcn/soulforge-plugin",
   "displayName": "SoulForge 灵魂打印机",
   "description": "输入人名或语料，蒸馏写作风格。展示预览后经用户确认才写入SOUL.md，自动备份旧版本（带时间戳）。语料通过用户配置的模型提供商进行分析。",
-  "version": "2.4.1",
+  "version": "2.5.0",
   "author": "ilang-ai",
   "homepage": "https://ilang.ai",
   "entryPoint": "dist/index.js",
