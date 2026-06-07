@@ -169,7 +169,7 @@ function extractText(r: any): string {
 export default function register(api: any) {
   const samplingSize = api?.pluginConfig?.samplingSize || SAMPLING_DEFAULT;
 
-  log(api, "info", `SoulForge v2.4.0 loaded. samplingSize=${samplingSize}`);
+  log(api, "info", `SoulForge loaded. samplingSize=${samplingSize}`);
   log(api, "info", `runEmbeddedAgent: ${!!api?.runtime?.agent?.runEmbeddedAgent}`);
   log(api, "info", `resolveAgentDir: ${!!api?.runtime?.agent?.resolveAgentDir}`);
   log(api, "info", `llm.complete: ${!!api?.llm?.complete}`);
