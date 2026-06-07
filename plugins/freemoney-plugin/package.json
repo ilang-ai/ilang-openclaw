@@ -1,6 +1,6 @@
 {
   "name": "@adsorgcn/freemoney-plugin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "白拿钱 — US/CA/UK/AU class action settlement tracker plugin for OpenClaw.",
   "type": "module",
   "main": "dist/index.js",
