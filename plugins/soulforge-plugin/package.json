@@ -1,6 +1,6 @@
 {
   "name": "@adsorgcn/soulforge-plugin",
-  "version": "4.0.2",
+  "version": "4.0.3",
   "description": "Writing style analysis plugin. Uses three-step method (observe facts, deduce traits, verify with corpus) to extract expression DNA. Plugin generates prompts only; agent runs analysis with its own model. User reviews and confirms before any file write.",
   "type": "module",
   "main": "dist/index.js",

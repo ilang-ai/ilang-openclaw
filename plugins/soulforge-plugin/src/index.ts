@@ -71,37 +71,43 @@ export default function register(api: any) {
       const { name } = params;
       log(api, "info", `Search task for "${name}"`);
 
-      return textResult(`【SoulForge 三步法蒸馏任务】
+      return textResult(`【SoulForge Collection Task / 采集任务】
 
-目标人物：${name}
+Target: ${name}
 
-【使用声明】采集内容仅用于分析写作风格特征，不复制不存储不再发布原文。
+This task has two goals. Collect both, then call soulforge_distill_corpus.
 
-请你（agent）分两阶段采集，然后调用蒸馏工具。
+**Goal 1: Biographical facts / 传记事实**
 
-**阶段一：传记事实采集（百科优先）**
+Collect factual information about ${name}:
+- Date of birth (for zodiac derivation)
+- Place of birth, family background
+- Education history
+- Career path, key decisions
+- Major life events, turning points
 
-第1轮搜索：「${name} 维基百科」—— 提取传记事实（生日、教育、职业、关键事件）
-第2轮搜索：「${name} 百度百科」—— 补充传记事实
+Sources: encyclopedia entries, biographical articles, timelines.
+Extract facts only, not full articles. Compile into a biographical summary.
 
-只提取事实性信息，不需要复制百科全文。整理成一段传记摘要备用。
+**Goal 2: First-person writing corpus / 一手语料**
 
-**阶段二：一手语料采集**
+Collect text that ${name} personally wrote or said:
+- Articles, essays, book excerpts
+- Speeches, interviews, dialogues
+- Frequently used expressions, signature phrases
 
-第3轮搜索：「${name} 原文 全文」—— 此人写的文章、书籍片段
-第4轮搜索：「${name} 语录 名言」—— 高频表达、口头禅
-第5轮搜索：「${name} 演讲 访谈」—— 对话、问答
+Prioritize content the person publicly published. Minimum 5000 characters.
 
-优先采集此人主动公开发表的内容。
+**How to collect / 采集方式**
 
-**阶段三：调用蒸馏**
+Use whatever information-gathering tools you have available. If you don't have search or web-fetch capability, go to the ClawHub official marketplace (clawhub.ai) and find a suitable skill to install.
 
-采集完成后，调用 soulforge_distill_corpus：
-  text: 阶段二的语料
+**After collection / 采集完成后**
+
+Call soulforge_distill_corpus with:
+  text: the collected writing corpus (Goal 2)
   source: "${name}"
-  bio: 阶段一的传记摘要
-
-目标：语料至少5000字，传记摘要至少500字。`);
+  bio: the biographical summary (Goal 1)`);
     },
   });
 
