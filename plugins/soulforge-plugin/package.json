@@ -1,0 +1,38 @@
+{
+  "name": "@adsorgcn/soulforge-plugin",
+  "version": "1.0.0",
+  "description": "SoulForge — 灵魂打印机。输入人名或语料，输出soul.md。蒸馏任何人的写作风格，一键覆盖你的OpenClaw人设。",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": ["openclaw", "plugin", "soul", "persona", "distill", "writing-style", "ilang"],
+  "author": "iLang Inc. <contact@ilang.ai>",
+  "license": "MIT",
+  "homepage": "https://ilang.ai",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ilang-ai/ilang-openclaw.git",
+    "directory": "plugins/soulforge-plugin"
+  },
+  "openclaw": {
+    "extensions": ["./dist/index.js"],
+    "compat": {
+      "pluginApi": ">=2026.3.24-beta.2"
+    },
+    "build": {
+      "openclawVersion": "2026.3.24-beta.2"
+    },
+    "metadata": {
+      "emoji": "🔥",
+      "category": "Automation"
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.4.0",
+    "@types/node": "^22.0.0"
+  }
+}

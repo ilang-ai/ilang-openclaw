@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Skills](https://img.shields.io/badge/Skills-8%20Published-blue)](#skills)
-[![Plugins](https://img.shields.io/badge/Plugins-1%20Published-blue)](#plugins)
+[![Plugins](https://img.shields.io/badge/Plugins-2%20Published-blue)](#plugins)
 [![Protocol](https://img.shields.io/badge/I--Lang-v4.0-purple)](https://ilang.ai)
 
 > **Skills** = instruction-only text, paste into any AI, zero dependencies.
@@ -26,6 +26,7 @@ ilang-openclaw/
 │   └── ilang-compress/  ← Original I-Lang compression engine
 ├── plugins/             ← Code plugins for OpenClaw runtime
 │   └── freemoney-plugin/← 白拿钱 native OpenClaw integration
+│   └── soulforge-plugin/← 灵魂打印机：蒸馏写作风格 → soul.md
 └── .github/workflows/   ← Auto-publish on push to main
 ```
 
@@ -104,6 +105,22 @@ openclaw plugins install clawhub:@adsorgcn/freemoney-plugin
 ```
 
 [**Details**](./plugins/freemoney-plugin/)
+
+---
+
+### soulforge-plugin `v1.0.0` -- 灵魂打印机
+
+输入人名或语料，蒸馏写作风格，自动覆盖soul.md：
+
+- **2 tools**: distill_search（搜索模式）, distill_corpus（语料模式）
+- **输出**: I-Lang GENE格式soul.md，自动写入~/.openclaw/soul.md
+- **用户体验**: "蒸馏XXX" → "你的写作风格已经跟XXX一致，随时可以再次替换为其他风格。"
+
+```bash
+openclaw plugins install clawhub:@adsorgcn/soulforge-plugin
+```
+
+[**Details**](./plugins/soulforge-plugin/)
 
 ---
 

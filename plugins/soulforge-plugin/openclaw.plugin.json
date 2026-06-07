@@ -1,0 +1,37 @@
+{
+  "id": "@adsorgcn/soulforge-plugin",
+  "name": "@adsorgcn/soulforge-plugin",
+  "displayName": "SoulForge 灵魂打印机",
+  "description": "输入人名或语料，蒸馏写作风格，自动覆盖soul.md。用户全程不碰终端。",
+  "version": "1.0.0",
+  "author": "ilang-ai",
+  "homepage": "https://ilang.ai",
+  "entryPoint": "dist/index.js",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "samplingSize": {
+        "type": "number",
+        "default": 50000,
+        "description": "采样字数上限"
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "tools": [
+    {
+      "name": "distill_search",
+      "description": "搜索模式蒸馏：输入人名，用搜索skill采集资料后蒸馏写作风格，自动写入soul.md"
+    },
+    {
+      "name": "distill_corpus",
+      "description": "语料模式蒸馏：从Drive读文件或用户粘贴文本，蒸馏写作风格，自动写入soul.md"
+    }
+  ],
+  "permissions": {
+    "network": ["connect.composio.dev"],
+    "filesystem": true,
+    "env": false
+  }
+}
