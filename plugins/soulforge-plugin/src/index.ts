@@ -59,11 +59,11 @@ export default function register(api: any) {
   // ========== 工具1：搜索任务 ==========
   api.registerTool({
     name: "soulforge_distill_search",
-    description: "搜索蒸馏模式：输入人名，返回两阶段采集任务。你（agent）执行采集后，把传记和语料传给 soulforge_distill_corpus 获取蒸馏prompt。",
+    description: "Search-distill mode: input a name, returns a two-phase collection task. Agent collects bio facts and corpus, then passes them to soulforge_distill_corpus. / 搜索蒸馏模式：输入人名，返回采集任务。",
     parameters: {
       type: "object",
       properties: {
-        name: { type: "string", description: "要蒸馏的人物名称" },
+        name: { type: "string", description: "Name of the person to distill / 要蒸馏的人物名称" },
       },
       required: ["name"],
     },
@@ -108,13 +108,13 @@ export default function register(api: any) {
   // ========== 工具2：生成蒸馏prompt（不调LLM） ==========
   api.registerTool({
     name: "soulforge_distill_corpus",
-    description: "生成三步法蒸馏prompt：接收语料和传记信息，返回蒸馏prompt。你（agent）用你当前的模型执行这个prompt，拿到SOUL内容后调用 soulforge_write 写入。本工具不调用LLM，只生成prompt。",
+    description: "Generate distillation prompt: receives corpus and bio, returns a three-step analysis prompt for the agent to execute with its own model. Pass the result to soulforge_write. No LLM calls inside this tool. / 生成蒸馏prompt，agent用自己的模型执行。",
     parameters: {
       type: "object",
       properties: {
-        text: { type: "string", description: "文本语料内容" },
-        source: { type: "string", description: "语料来源（人名）" },
-        bio: { type: "string", description: "可选。从百科采集的传记摘要。" },
+        text: { type: "string", description: "Text corpus content / 文本语料" },
+        source: { type: "string", description: "Source name / 语料来源（人名）" },
+        bio: { type: "string", description: "Optional. Biographical summary from encyclopedia. / 可选，百科传记摘要" },
       },
       required: ["text", "source"],
     },
@@ -256,13 +256,13 @@ ${prompt}`);
   // ========== 工具3：预览+确认+写文件（不调LLM） ==========
   api.registerTool({
     name: "soulforge_write",
-    description: "写入SOUL.md：接收蒸馏完成的SOUL内容，展示预览，用户确认后备份旧文件并写入。本工具不调用LLM。",
+    description: "Write SOUL.md: receives distilled SOUL content. When confirmed=false, returns a preview for the user to review. Only when the user explicitly confirms should the agent call again with confirmed=true to write. Backs up old file with timestamp. / 写入SOUL.md：confirmed=false返回预览，用户明确确认后agent才能传confirmed=true写入。",
     parameters: {
       type: "object",
       properties: {
-        content: { type: "string", description: "蒸馏输出的完整SOUL内容（I-Lang GENE格式）" },
-        source: { type: "string", description: "语料来源（人名）" },
-        confirmed: { type: "boolean", description: "false=预览，true=确认写入" },
+        content: { type: "string", description: "Complete SOUL content in I-Lang GENE format / 蒸馏输出的SOUL内容" },
+        source: { type: "string", description: "Source name / 语料来源（人名）" },
+        confirmed: { type: "boolean", description: "false=preview for user review, true=user has confirmed, proceed to write / false=预览，true=用户已确认写入" },
       },
       required: ["content", "source"],
     },
@@ -276,7 +276,7 @@ ${prompt}`);
       const soulPath = resolveSoulPath(api);
 
       if (!confirmed) {
-        log(api, "info", `Preview SOUL for "${source}", ${content.length} chars`);
+        log(api, "info", `Preview SOUL for "${source}", ${content.length} chars. User must confirm before write.`);
 
         return textResult(`【蒸馏预览】从「${source}」用三步法提取的表达DNA：
 
@@ -286,11 +286,11 @@ ${content}
 • 目标：${soulPath}
 • 备份：SOUL.md.bak.{时间戳}
 
-确认使用这个风格吗？确认后调用 soulforge_write(content, source, confirmed=true) 写入。`);
+Confirm this style? If yes, call soulforge_write with confirmed=true. / 确认使用这个风格吗？确认后调用 soulforge_write(confirmed=true) 写入。`);
       }
 
-      // 确认写入
-      log(api, "info", `Writing SOUL for "${source}" to ${soulPath}`);
+      // 确认写入 — agent should only call this after user explicitly confirmed the preview
+      log(api, "info", `User confirmed. Writing SOUL for "${source}" to ${soulPath}`);
       const { success, backedUp, backupPath, error } = backupAndWrite(soulPath, content);
 
       if (success) {
