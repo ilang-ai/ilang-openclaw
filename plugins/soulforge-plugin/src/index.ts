@@ -1,18 +1,16 @@
 /**
- * SoulForge — 灵魂打印机 v2.0
+ * SoulForge — 灵魂打印机 v2.1
  *
- * P0-P2 全修版，兼容新版 OpenClaw Plugin SDK
+ * v2.1: distill_search 真正调用搜索，自动采集+蒸馏一条龙
  *
  * © 2026 iLang Inc., Canada. MIT License.
  */
 
 import { homedir } from "os";
-import { writeFileSync, readFileSync, copyFileSync, mkdirSync, existsSync } from "fs";
+import { writeFileSync, copyFileSync, mkdirSync, existsSync } from "fs";
 import { join } from "path";
 
 const SAMPLING_DEFAULT = 50000;
-
-// 暂存预览内容，确保确认时写入的和预览的是同一份
 const previewCache = new Map<string, string>();
 
 function sampleCorpus(text: string, limit: number): string {
@@ -62,16 +60,33 @@ ${corpus}
 只输出I-Lang GENE格式内容。`;
 }
 
+function buildSearchPrompt(name: string): string {
+  return `你的任务：为蒸馏「${name}」的写作风格采集语料。
+
+请搜索并整理以下内容：
+1. 此人的公开文章、博客、长文、著作片段（至少搜索5次不同关键词）
+2. 此人的社交媒体发言、演讲金句
+3. 此人的访谈、对话、问答记录
+
+搜索策略：
+- 先搜"${name} 文章"、"${name} 演讲"、"${name} 语录"
+- 再搜"${name} 访谈"、"${name} 观点"
+- 如果是英文人物，用英文名搜索
+- 每次搜索后提取正文内容，不要只取标题
+
+输出要求：
+把所有搜索到的文本内容合并输出，越多越好，至少5000字。
+只输出原文内容，不要你的分析和评论。
+用"---"分隔不同来源的内容。`;
+}
+
 function resolveSoulPath(api: any): string {
-  // P0-5: 写入 workspace SOUL.md，不是 ~/.openclaw/soul.md
   try {
     if (api?.runtime?.agent?.resolveAgentWorkspaceDir) {
       const workspaceDir = api.runtime.agent.resolveAgentWorkspaceDir(api.config);
       return join(workspaceDir, "SOUL.md");
     }
   } catch { /* fallback */ }
-
-  // Fallback: 尝试常见路径
   const workspacePath = join(homedir(), ".openclaw", "workspace", "SOUL.md");
   if (existsSync(join(homedir(), ".openclaw", "workspace"))) {
     return workspacePath;
@@ -85,18 +100,14 @@ function backupAndWrite(soulPath: string, content: string): { success: boolean; 
     if (!existsSync(dir)) {
       mkdirSync(dir, { recursive: true });
     }
-
     let backedUp = false;
     let backupPath = "";
-
     if (existsSync(soulPath)) {
-      // P1-10: 备份带时间戳
       const ts = new Date().toISOString().replace(/[:.]/g, "-").slice(0, 19);
       backupPath = `${soulPath}.bak.${ts}`;
       copyFileSync(soulPath, backupPath);
       backedUp = true;
     }
-
     writeFileSync(soulPath, content, "utf-8");
     return { success: true, backedUp, backupPath };
   } catch {
@@ -104,25 +115,35 @@ function backupAndWrite(soulPath: string, content: string): { success: boolean; 
   }
 }
 
-// P1-8: 标准 ToolResult 格式
 function textResult(text: string) {
   return { content: [{ type: "text" as const, text }] };
 }
 
-// P1-7: LLM调用兼容层
-async function callLLM(api: any, prompt: string): Promise<string> {
-  // 优先用新版 API
+async function callLLM(api: any, prompt: string, useTools: boolean = false): Promise<string> {
+  // 带工具调用的版本（用于搜索采集）
+  if (useTools && api?.runtime?.agent?.runEmbeddedAgent) {
+    try {
+      const result = await api.runtime.agent.runEmbeddedAgent({
+        messages: [{ role: "user", content: prompt }],
+        temperature: 0.3,
+        tools: ["webSearch", "web_search", "WebSearch"],
+        maxTurns: 10,
+      });
+      return result?.content || result?.text || extractTextFromResult(result);
+    } catch { /* fallback */ }
+  }
+
+  // 不带工具的版本（用于蒸馏分析）
   if (api?.runtime?.agent?.runEmbeddedAgent) {
     try {
       const result = await api.runtime.agent.runEmbeddedAgent({
         messages: [{ role: "user", content: prompt }],
         temperature: 0.3,
       });
-      return result?.content || result?.text || "";
+      return result?.content || result?.text || extractTextFromResult(result);
     } catch { /* fallback */ }
   }
 
-  // Fallback: 旧版 api.llm.complete
   if (api?.llm?.complete) {
     try {
       const result = await api.llm.complete({
@@ -136,15 +157,25 @@ async function callLLM(api: any, prompt: string): Promise<string> {
   return "";
 }
 
+function extractTextFromResult(result: any): string {
+  if (!result) return "";
+  if (typeof result === "string") return result;
+  if (result.content && Array.isArray(result.content)) {
+    return result.content
+      .filter((b: any) => b.type === "text")
+      .map((b: any) => b.text)
+      .join("\n");
+  }
+  return "";
+}
+
 export default function register(api: any) {
-  // P1-9: 读取配置
   const samplingSize = api?.pluginConfig?.samplingSize || SAMPLING_DEFAULT;
 
-  // P0-2/3: 新版 registerTool 签名
+  // ========== 语料模式：用户粘贴文本 ==========
   api.registerTool({
-    // P2-14: 加 soulforge_ 前缀
     name: "soulforge_distill_corpus",
-    description: "语料模式蒸馏：用户粘贴文本，蒸馏写作风格。展示预览，用户确认后写入SOUL.md（自动备份旧版本）。语料通过用户配置的模型提供商进行分析。",
+    description: "语料模式蒸馏：用户粘贴文本，蒸馏写作风格。展示预览，用户确认后写入SOUL.md（自动备份）。语料通过用户配置的模型提供商进行分析。",
     parameters: {
       type: "object",
       properties: {
@@ -158,12 +189,11 @@ export default function register(api: any) {
         },
         confirmed: {
           type: "boolean",
-          description: "用户是否已确认写入。首次调用传false展示预览，用户确认后传true执行写入。",
+          description: "用户是否已确认写入。首次false展示预览，确认后true执行写入。",
         },
       },
       required: ["text", "source"],
     },
-    // P0-3: 新版 execute 签名
     execute: async (_toolCallId: string, params: { text: string; source: string; confirmed?: boolean }) => {
       const { text, source, confirmed } = params;
 
@@ -174,7 +204,6 @@ export default function register(api: any) {
       const cacheKey = `corpus_${source}`;
 
       if (!confirmed) {
-        // 第一次：蒸馏 + 预览 + 暂存
         const sampled = sampleCorpus(text, samplingSize);
         const prompt = buildDistillPrompt(sampled, source);
         const soulContent = await callLLM(api, prompt);
@@ -183,28 +212,22 @@ export default function register(api: any) {
           return textResult("蒸馏失败：输出格式不符合预期。请重试。");
         }
 
-        // P0-6: 暂存预览内容
         previewCache.set(cacheKey, soulContent);
-
-        // P0-15: 输出目标路径信息
         const soulPath = resolveSoulPath(api);
 
-        const privacyNotice = `【数据说明】你提供的语料将通过你配置的中转站发送给AI模型进行风格分析。处理方式取决于你选择的模型提供商的隐私政策。如果语料包含敏感信息，建议先脱敏后再投喂。`;
+        return textResult(`【数据说明】语料将通过你配置的中转站发送给AI模型分析。处理方式取决于模型提供商的隐私政策。
 
-        return textResult(`${privacyNotice}
-
-【蒸馏预览】以下是从「${source}」提取的写作风格：
+【蒸馏预览】从「${source}」提取的写作风格：
 
 ${soulContent}
 
 【写入信息】
 • 目标路径：${soulPath}
-• 备份策略：写入前自动备份为 SOUL.md.bak.{时间戳}
+• 备份策略：SOUL.md.bak.{时间戳}
 
 确认使用这个风格吗？回复"确认"执行写入。`);
       }
 
-      // 第二次：确认写入（P0-6: 用暂存的预览内容，不重新生成）
       const cachedContent = previewCache.get(cacheKey);
       if (!cachedContent) {
         return textResult("未找到预览内容，请重新运行蒸馏。");
@@ -212,23 +235,21 @@ ${soulContent}
 
       const soulPath = resolveSoulPath(api);
       const { success, backedUp, backupPath } = backupAndWrite(soulPath, cachedContent);
-
-      // 写入后清除缓存
       previewCache.delete(cacheKey);
 
       if (success) {
         const backupMsg = backedUp ? `\n旧版本已备份为：${backupPath}` : "";
         return textResult(`你的写作风格已经跟${source}一致，随时可以再次替换为其他风格。${backupMsg}\n\n写入路径：${soulPath}`);
       } else {
-        return textResult(`蒸馏完成，但写入SOUL.md失败。以下是你的IP人设卡，请手动保存到 ${soulPath}：\n\n${cachedContent}`);
+        return textResult(`写入SOUL.md失败。以下是人设卡，请手动保存到 ${soulPath}：\n\n${cachedContent}`);
       }
     },
   });
 
+  // ========== 搜索模式：输入人名，自动采集+蒸馏 ==========
   api.registerTool({
-    // P2-11/14: 改名为 guide，加前缀
     name: "soulforge_distill_search",
-    description: "搜索引导模式：输入人名，引导用户用搜索skill采集资料后调用soulforge_distill_corpus蒸馏。本工具不直接搜索，只提供采集指引。",
+    description: "搜索模式蒸馏：输入人名，自动搜索采集此人的公开文章和发言，然后蒸馏写作风格。展示预览，用户确认后写入SOUL.md。",
     parameters: {
       type: "object",
       properties: {
@@ -236,27 +257,74 @@ ${soulContent}
           type: "string",
           description: "要蒸馏的人物名称",
         },
+        confirmed: {
+          type: "boolean",
+          description: "用户是否已确认写入。首次false执行搜索+蒸馏+预览，确认后true执行写入。",
+        },
       },
       required: ["name"],
     },
-    execute: async (_toolCallId: string, params: { name: string }) => {
-      const { name } = params;
+    execute: async (_toolCallId: string, params: { name: string; confirmed?: boolean }) => {
+      const { name, confirmed } = params;
+      const cacheKey = `search_${name}`;
 
-      return textResult(`准备蒸馏「${name}」的写作风格。
+      if (!confirmed) {
+        // 第一阶段：搜索采集
+        const searchPrompt = buildSearchPrompt(name);
+        const corpus = await callLLM(api, searchPrompt, true);
 
-本工具提供采集指引，不直接执行搜索。请先用搜索工具采集以下内容：
+        if (!corpus || corpus.trim().length < 500) {
+          return textResult(`搜索「${name}」的公开资料不足（不到500字）。
 
-1. 此人的公开文章、博客、长文（至少10篇）
-2. 此人的社交媒体发言（微博/X/即刻等）
-3. 此人的演讲或访谈文字稿（如有）
+可能的原因：
+• 此人公开文章较少
+• 搜索工具未返回足够内容
+• 人名拼写有误
 
-【数据说明】采集到的文本将通过你配置的中转站发送给AI模型进行风格分析。处理方式取决于你选择的模型提供商的隐私政策。
+建议：手动收集此人的文章/语录，然后用 soulforge_distill_corpus 蒸馏。`);
+        }
 
-采集完成后，把所有文本内容汇总，然后调用 soulforge_distill_corpus 工具进行蒸馏。
+        // 第二阶段：蒸馏
+        const sampled = sampleCorpus(corpus, samplingSize);
+        const distillPrompt = buildDistillPrompt(sampled, name);
+        const soulContent = await callLLM(api, distillPrompt);
 
-提示：
-• 如果你安装了搜索类skill，可以直接使用
-• 采集的内容越多越好，至少需要5000字以上`);
+        if (!soulContent.includes("::ILANG::v4.0")) {
+          return textResult(`搜索到了「${name}」的语料（${corpus.length}字），但蒸馏失败。请重试。`);
+        }
+
+        previewCache.set(cacheKey, soulContent);
+        const soulPath = resolveSoulPath(api);
+
+        return textResult(`【数据说明】已通过搜索采集「${name}」的公开文章和发言（${corpus.length}字），并通过你配置的模型进行风格分析。
+
+【蒸馏预览】从「${name}」公开资料提取的写作风格：
+
+${soulContent}
+
+【写入信息】
+• 目标路径：${soulPath}
+• 备份策略：SOUL.md.bak.{时间戳}
+
+确认使用这个风格吗？回复"确认"执行写入。`);
+      }
+
+      // 确认写入
+      const cachedContent = previewCache.get(cacheKey);
+      if (!cachedContent) {
+        return textResult("未找到预览内容，请重新运行蒸馏。");
+      }
+
+      const soulPath = resolveSoulPath(api);
+      const { success, backedUp, backupPath } = backupAndWrite(soulPath, cachedContent);
+      previewCache.delete(cacheKey);
+
+      if (success) {
+        const backupMsg = backedUp ? `\n旧版本已备份为：${backupPath}` : "";
+        return textResult(`你的写作风格已经跟${name}一致，随时可以再次替换为其他风格。${backupMsg}\n\n写入路径：${soulPath}`);
+      } else {
+        return textResult(`写入SOUL.md失败。以下是人设卡，请手动保存到 ${soulPath}：\n\n${cachedContent}`);
+      }
     },
   });
 }

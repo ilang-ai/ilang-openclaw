@@ -1,6 +1,6 @@
 {
   "name": "@adsorgcn/soulforge-plugin",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "SoulForge — 灵魂打印机。输入人名或语料，输出soul.md。蒸馏任何人的写作风格，一键覆盖你的OpenClaw人设。",
   "type": "module",
   "main": "dist/index.js",
