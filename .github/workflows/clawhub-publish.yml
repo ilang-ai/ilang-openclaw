@@ -98,12 +98,22 @@ jobs:
               cd "plugins/$dir_name"
               npm install
               npm run build
+              rm -f *.tgz
+              npm pack
 
-              clawhub package publish . \
+              TGZFILE=$(ls *.tgz 2>/dev/null | head -1)
+              if [ -z "$TGZFILE" ]; then
+                echo ">>> npm pack failed for $dir_name"
+                cd ../..
+                continue
+              fi
+
+              clawhub package publish "./$TGZFILE" \
                 --family code-plugin \
-                --dry-run \
-                && clawhub package publish . --family code-plugin \
-                || echo ">>> Failed to publish plugin $dir_name"
+                --source-repo "${{ github.repository }}" \
+                --source-commit "${{ github.sha }}" \
+                --source-path "plugins/$dir_name" \
+                || echo ">>> Failed to publish plugin $dir_name (version may already exist)"
               cd ../..
 
               PUBLISHED="$PUBLISHED $dir_name"
