@@ -1,100 +1,16 @@
-# SoulForge 灵魂打印机
+# SoulForge — Expression DNA Distiller
 
-**分析写作风格特征，提取表达DNA。用户预览确认后写入SOUL.md。**
+Analyzes writing style and extracts expression DNA using a three-step method (observe facts → deduce traits → verify with corpus). User reviews preview and confirms before any file write.
 
-你不需要手动编辑任何文件。SoulForge会在你确认后自动更新写作人设文件（soul.md），旧版本自动备份。
-
-## 安装
+## Install
 
 ```bash
 openclaw plugins install clawhub:@adsorgcn/soulforge-plugin
 ```
 
-## 两个按钮
+## Post-install configuration
 
-| 说一句话 | 发生什么 |
-|---------|---------|
-| "蒸馏XXX" | 搜索模式：引导你用搜索skill采集资料 → 蒸馏 → 预览 → 你确认 → 风格更新 |
-| "用这个语料蒸馏"（粘贴文本或Drive文件）| 语料模式：蒸馏 → 预览 → 你确认 → 风格更新 |
-
-完成后你会看到：
-
-> 你的写作风格已经跟XXX一致，随时可以再次替换为其他风格。（旧版本已备份为soul.md.bak）
-
-就这样。下次你用任何写作skill，出来的内容就带那个风格。
-
-## 蒸馏什么
-
-从语料中提取7个维度的写作指纹：
-
-| 维度 | 提取什么 |
-|------|---------|
-| 开头习惯 | 先上数字？先讲故事？先抛问题？ |
-| 用词指纹 | 高频词、口头禅、从不用的词 |
-| 段落节奏 | 平均段落长度、长短段交替模式 |
-| 反问频率 | 每千字多少个反问句、反问风格 |
-| 结尾套路 | 回扣标题？金句收？反问收？ |
-| 视角立场 | 犀利/温和/调侃/理性/务实 |
-| 读者画像 | 目标读者是谁 |
-
-## 语料从哪来
-
-• 咸鱼4元买一个公众号全部文章txt
-• 自己写过的文章/朋友圈/笔记
-• 任何人的公开文章合集
-• 演讲/访谈文字稿
-
-语料越多越准。至少500字才能蒸馏，5000字以上效果最好。
-
-## Drive支持
-
-如果你绑定了Google Drive（通过Composio），可以直接说"蒸馏Drive里那个文件"。没绑也没关系，粘贴文本一样用。
-
-## 输出格式
-
-I-Lang GENE格式，自动写入 `~/.openclaw/soul.md`：
-
-```
-::ILANG::v4.0
-[TYPE:soul]
-[SOURCE:蒸馏自XXX]
-
-::GENE{opening|style:data-first}
-::GENE{vocabulary|fingerprint:说白了,搞毛,讲真|never:值得注意的是}
-::GENE{rhythm|avg_para_lines:2|pattern:短-短-长-短}
-::GENE{question|freq:3|style:犀利质问}
-::GENE{ending|style:反问+回扣标题}
-::GENE{tone|style:犀利务实}
-::GENE{audience|profile:跨境创业者}
-```
-
-你不需要看懂这个。其他写作skill会自动读取它。
-
-## 数据与隐私
-
-• 语料通过你配置的中转站发送给AI模型分析，处理方式取决于模型提供商的隐私政策
-• 蒸馏前展示预览，你确认后才写入文件
-• 写入前自动备份旧soul.md为soul.md.bak
-• soul.md是本地文件，蒸馏完成后不依赖任何外部服务
-• Drive访问通过Composio OAuth授权，不存储你的文件
-• 如果语料包含敏感信息，建议先脱敏后再投喂
-
-## 配合使用
-
-| 产品 | 作用 |
-|------|------|
-| [SoulForge（本插件）](https://clawhub.ai/plugins/@adsorgcn/soulforge-plugin) | 造灵魂 |
-| [WeChat-Awesome](https://clawhub.ai/adsorgcn/WeChat-Awesome) | 用灵魂写公众号爆文 |
-| [DeAI](https://clawhub.ai/adsorgcn/DeAI) | 去AI味编辑 |
-| [freemoney-plugin](https://clawhub.ai/plugins/@adsorgcn/freemoney-plugin) | 理赔追踪 |
-
-## 许可
-
-MIT — © 2026 iLang Inc., Canada
-
-## 安装后配置
-
-安装插件后，需要在 OpenClaw 配置中放行插件工具：
+Add the plugin to your tool allowlist in `~/.openclaw/openclaw.json`:
 
 ```json
 {
@@ -104,4 +20,92 @@ MIT — © 2026 iLang Inc., Canada
 }
 ```
 
-否则 agent 不会调用插件工具。
+## Three tools
+
+**soulforge_distill_search** — Input a person's name. Returns a structured collection task for the agent to gather biographical facts and writing corpus.
+
+**soulforge_distill_corpus** — Input collected corpus text (and optional bio). Returns a three-step distillation prompt for the agent to execute with its own model.
+
+**soulforge_write** — Receives the distilled SOUL content. Shows a preview with a token. Only writes to SOUL.md after user confirms with the matching token. Backs up old file with timestamp.
+
+## Workflow
+
+```
+soulforge_distill_search("person name")
+  → agent collects bio facts + writing corpus
+  → agent calls soulforge_distill_corpus(text, source, bio)
+  → agent gets distillation prompt, executes it with its own model
+  → agent calls soulforge_write(content, source, confirmed=false)
+  → user reviews preview
+  → user confirms
+  → agent calls soulforge_write(content, source, confirmed=true, preview_token)
+  → SOUL.md updated (old version backed up)
+```
+
+## What it extracts
+
+7 dimensions of writing fingerprint, each with WHAT + WHY + EVIDENCE + CONFIDENCE:
+
+- **opening** — how they start (data-first? story? question?)
+- **vocabulary** — signature words, never-used words
+- **rhythm** — paragraph length, alternation pattern
+- **question** — rhetorical question frequency and style
+- **ending** — how they close (callback? punchline? question?)
+- **tone** — overall perspective and stance
+- **audience** — target reader profile
+
+## Three-step method
+
+1. **Observe**: extract biographical facts (birthday → zodiac, education, career) + corpus statistics (word frequency, paragraph length, question rate)
+2. **Deduce**: generate personality hypotheses from bio facts → verify each with corpus → assign confidence (HIGH/MEDIUM/LOW)
+3. **Output**: each GENE includes WHAT + WHY + EVIDENCE + CONFIDENCE
+
+Weight: corpus 100% > behavioral facts 70% > biographical facts 30% > zodiac 15%. Corpus always wins in conflicts.
+
+## Corpus sources
+
+- Exported articles from any public account (txt format)
+- Personal writing, notes, social media posts
+- Public articles, speeches, interview transcripts
+
+Minimum 500 characters to distill. 5000+ characters recommended.
+
+## Output format
+
+I-Lang GENE format, written to the agent workspace SOUL.md:
+
+```
+::ILANG::v4.0
+[TYPE:soul]
+[SOURCE:distilled from person_name]
+
+[IDENTITY]
+  NAME: person_name
+  ZODIAC: derived from birthdate
+  CORE_TRAIT: verified core traits
+
+::GENE{opening|style:data-first|confidence:HIGH}
+  T: opening habit
+  WHY: deduced cause
+  EVIDENCE: corpus examples
+```
+
+## Data and privacy
+
+- Corpus is sent to the AI model you configured (via your relay/provider) for analysis. Data handling depends on your model provider's policy.
+- Preview is shown before any write. Write requires explicit user confirmation with a matching preview token.
+- Old SOUL.md is backed up with timestamp before overwrite.
+- SOUL.md is a local file; no external service dependency after distillation.
+- If corpus contains sensitive information, consider redacting before use.
+
+## Related tools
+
+| Tool | Purpose |
+|------|---------|
+| [SoulForge (this plugin)](https://clawhub.ai/plugins/@adsorgcn/soulforge-plugin) | Extract writing DNA |
+| [WeChat-Awesome](https://clawhub.ai/adsorgcn/WeChat-Awesome) | Write articles using the extracted style |
+| [DeAI](https://clawhub.ai/adsorgcn/DeAI) | Remove AI fingerprint from text |
+
+## License
+
+MIT — © 2026 iLang Inc., Canada

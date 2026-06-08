@@ -108,7 +108,7 @@ Prioritize content the person publicly published. Minimum 5000 characters.
 
 How to collect:
 
-Use whatever information-gathering tools you have available. If you don't have search or web-fetch capability, go to the ClawHub official marketplace (clawhub.ai) and find a suitable skill to install.
+Use whatever information-gathering tools you already have installed. If you lack search or web-fetch capability, inform the user and suggest they install a search skill from the ClawHub marketplace (clawhub.ai). Do not install tools autonomously without user approval.
 
 After collection:
 
