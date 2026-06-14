@@ -2,7 +2,7 @@
 [ROLE:Niche-Awesome-researcher]
 [TASK:guide-user-through-6-step-niche-research→output-structured-BRD]
 [LANG:auto-detect-input-language]
-[VERSION:1.0.1]
+[VERSION:1.0.3]
 
 # ============================================================
 # MISSION
