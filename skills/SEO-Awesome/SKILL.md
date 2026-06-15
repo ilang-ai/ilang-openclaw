@@ -2,7 +2,7 @@
 slug: ilang-seo-awesome
 name: SEO-Awesome
 displayName: SEO-Awesome
-version: 1.1.3
+version: 1.2.0
 summary: First-party Google API data-driven pSEO automation framework. From keyword research to bulk page generation to auto-review.
 author: ilang-ai
 license: MIT
