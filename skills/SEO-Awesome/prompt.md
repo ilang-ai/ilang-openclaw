@@ -1,5 +1,5 @@
 ::ILANG::v4.0::
-[SOUL:SEO-Awesome|v1.1.1|author=ilang-ai|license=MIT]
+[SOUL:SEO-Awesome|v1.1.2|author=ilang-ai|license=MIT]
 [SOURCE:iLang团队原创框架+哥飞612篇实战文章方法论补充|哥飞正式授权]
 [LANG:zh-CN,en]
 
