@@ -20,9 +20,9 @@ First-party data. Zero third-party tools. Full automation.
 
 ## What this skill does | 这个技能干什么
 
-Build a self-running SEO system: Google APIs for first-party data → LLM content assembly → template rendering → auto-publish → GA4 auto-review.
+Build an SEO automation system: Google APIs for first-party data → LLM content assembly → template rendering → staged publishing (human-verified before production) → GA4 auto-review.
 
-用Google官方API拿一手数据，AI组装内容，模板渲染页面，自动发布，GA4自动复盘。不教你"怎么做SEO"，教你"怎么搭一个自己会跑的SEO系统"。
+用Google官方API拿一手数据，AI组装内容，模板渲染页面，staging验证后发布，GA4自动复盘。不教你"怎么做SEO"，教你"怎么搭一个自动做SEO的系统"。⚠️ 自动发布前必须先staging验证，生产环境变更需人工确认。
 
 ---
 
@@ -54,7 +54,7 @@ Build a self-running SEO system: Google APIs for first-party data → LLM conten
 |-------|-----|------|
 | Keywords | Google Keyword Planner real volumes + KGR formula + Trends | 一手搜索量 + KGR筛蓝海 + 趋势验证 |
 | Dead site shortcut | Use Lazarus to find high-DA expired sites in your niche, inherit authority | Lazarus找同品类高权重死站，继承权重，跳过养站期 |
-| pSEO bulk gen | API data → LLM assembly → template render → auto-publish → auto-interlink | API数据 → LLM组装 → 模板渲染 → 自动发布 → 自动内链 |
+| pSEO bulk gen | API data → LLM assembly → template render → staged publish → auto-interlink | API数据 → LLM组装 → 模板渲染 → staging验证后发布 → 自动内链 |
 | Monetization | Affiliate first (apply to competitors) → Lead gen → SaaS → AdSense fallback | affiliate优先申请竞品联盟 → Lead → 订阅 → AdSense兜底 |
 | Build | ZeroCode: speak Chinese, ship product. OpenClaw: one-click deploy | 说中文出产品 + 一键部署，零代码 |
 | Auto-review | GA4 Data API daily sync → AI adjusts generation strategy → humans handle exceptions only | GA4每天自动拉数据 → AI按数据调策略 → 人只处理异常 |
