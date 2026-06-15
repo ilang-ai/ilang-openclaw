@@ -1,7 +1,7 @@
 # I-Lang OpenClaw — Skills + Plugins
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Skills](https://img.shields.io/badge/Skills-9%20Published-blue)](#skills)
+[![Skills](https://img.shields.io/badge/Skills-10%20Published-blue)](#skills)
 [![Plugins](https://img.shields.io/badge/Plugins-2%20Published-blue)](#plugins)
 [![Protocol](https://img.shields.io/badge/I--Lang-v4.0-purple)](https://ilang.ai)
 
@@ -24,7 +24,8 @@ ilang-openclaw/
 │   ├── no-prompt/       ← AI writes prompts for you
 │   ├── less-token/      ← Compress prompts, save tokens
 │   ├── ilang-compress/  ← Original I-Lang compression engine
-│   └── Niche-Awesome/  ← 出海选品调研：不知道做什么？3小时帮你找到方向
+│   ├── Niche-Awesome/  ← 出海选品调研：不知道做什么？3小时帮你找到方向
+│   ├── SEO-Awesome/    ← 出海SEO自动化：Google API一手数据+PSEO批量页面+GA4自动复盘
 ├── plugins/             ← Code plugins for OpenClaw runtime
 │   └── freemoney-plugin/← 白拿钱 native OpenClaw integration
 │   └── soulforge-plugin/← 灵魂打印机：蒸馏写作风格 → soul.md
@@ -50,6 +51,12 @@ Three-layer DeAI: clean filler phrases, mark positions for authentic voice, rest
 Complete 6-step niche product research: from "I don't know what to build" to a full BRD in 3 hours. AI guides, you search, AI analyzes. Zero research experience needed.
 
 [**Install on ClawHub**](https://clawhub.ai/adsorgcn/Niche-Awesome) | [**Details**](./skills/Niche-Awesome/SKILL.md)
+
+### SEO-Awesome `v1.0.0` — 出海SEO自动化：一手数据驱动，零第三方工具费
+
+不教你"怎么做SEO"，教你"怎么搭一个自己会跑的SEO系统"。Google API全家桶拿一手数据（Keyword Planner/Search Console/Places/Trends，全免费），PSEO批量页面生成（API数据+LLM组装+模板渲染+Cron自动发布），GA4 Data API自动化复盘（每天自动拉数据，AI按数据调整生成策略）。变现affiliate优先，AdSense兜底。零代码，零第三方工具费。哥飞授权612篇实战文章作为方法论补充，核心框架iLang团队原创。
+
+[**Install on ClawHub**](https://clawhub.ai/adsorgcn/SEO-Awesome) | [**Details**](./skills/SEO-Awesome/SKILL.md)
 
 ---
 
