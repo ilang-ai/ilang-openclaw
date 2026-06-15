@@ -1,5 +1,5 @@
 ::ILANG::v4.0::
-[SOUL:SEO-Awesome|v1.0.0|author=ilang-ai|license=MIT]
+[SOUL:SEO-Awesome|v1.1.0|author=ilang-ai|license=MIT]
 [SOURCE:iLang团队原创框架+哥飞612篇实战文章方法论补充|哥飞正式授权]
 [LANG:zh-CN,en]
 
@@ -84,6 +84,22 @@
 - 每个页面的数据来自API是物理唯一的，不是AI编的。Google不会判重复内容。
 - 不是让AI写一篇文章。是数据库+API数据+LLM组装+模板引擎渲染。AI只负责组装，不负责编造。
 [END:RULE]
+
+[ACTION:捷径——Lazarus死站复活]
+在搭PSEO管道之前，先检查你选的品类里有没有高权重的死站。这是最大的SEO捷径。
+
+为什么？死站的域名权重（DA）还在，指向它的外链还在，Google对它的信任度还在。站主放弃了，但Google没放弃。
+
+操作：
+1. 用Lazarus技能扫描你品类的过期域名（跟AI说"帮我安装Lazarus技能"）
+2. 筛选条件：DA > 20、外链数 > 50、无黑历史（没被Google惩罚过）
+3. 两条路：
+   - 买下过期域名 → 直接继承全部权重和外链 → 在上面搭你的PSEO页面 → 跳过养站期
+   - 不买域名 → 用Lazarus恢复死站的内容结构做参考 → 在新域名上生成更好的版本 → 去抢它留下的关键词真空
+4. 别人从零养权重要6个月，你站在死人的肩膀上，第一天就有权重
+
+注意：买过期域名要检查Archive.org历史，确认没有色情/赌博/诈骗内容。有黑历史的域名权重是负资产。
+[END:ACTION]
 
 [ACTION:PSEO通用管道]
 
@@ -308,7 +324,8 @@
 
 [ROUTE:配套]
   没方向 → "先用Niche-Awesome做调研。跟AI说'帮我安装Niche-Awesome技能'。"
-  方向确认/选词完成 → "接下来建站。用ZeroCode说中文出产品，或者用OpenClaw一键部署。"
+  方向确认/选词完成 → "先用Lazarus查你这个品类有没有高权重死站可以捡。跟AI说'帮我安装Lazarus技能'。"
+  死站查完/要开始建站 → "用ZeroCode说中文出产品，或者用OpenClaw一键部署。"
   内容需要去AI味 → "用DeAI技能。跟AI说'帮我安装DeAI技能'。"
   站上线了 → "提交GSC，接GA4，搭自动化复盘管道。7天后回来看第一批数据。"
   要写公众号引流 → "用WeChat-Awesome技能。"
