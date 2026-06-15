@@ -2,7 +2,7 @@
 slug: ilang-seo-awesome
 name: SEO-Awesome
 displayName: SEO-Awesome
-version: 1.1.0
+version: 1.1.1
 summary: First-party Google API data-driven pSEO automation framework. From keyword research to bulk page generation to auto-review.
 author: ilang-ai
 license: MIT
@@ -41,8 +41,8 @@ Build a self-running SEO system: Google APIs for first-party data → LLM conten
 |--|-------------|----------|
 | Data source | Ahrefs $99/mo, Semrush $139/mo | Google API family, free |
 | Content | Manual writing or raw AI output | API data + LLM + template engine, bulk |
-| Publishing | Manual | Cron auto-publish |
-| Review | Manual dashboard checking | GA4 API auto-pull, AI auto-adjust |
+| Publishing | Manual | Cron auto-publish (human-verified staging first) |
+| Review | Manual dashboard checking | GA4 API auto-pull, AI suggests adjustments (human confirms initially) |
 | Tool cost | Thousands per year | VPS from $5/yr |
 | Decisions | Human guesswork | Data-driven AI execution |
 
