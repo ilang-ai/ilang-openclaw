@@ -2,7 +2,7 @@
 slug: ilang-seo-awesome
 name: SEO-Awesome
 displayName: SEO-Awesome
-version: 1.2.0
+version: 1.2.1
 summary: First-party Google API data-driven pSEO automation framework. From keyword research to bulk page generation to auto-review.
 author: ilang-ai
 license: MIT
@@ -74,7 +74,7 @@ Build an SEO automation system: Google APIs for first-party data → LLM content
 
 ## Install | 安装使用
 
-**OpenClaw users:** Tell your AI "install SEO-Awesome from the official marketplace"
+**OpenClaw users:** To install, explicitly request: "I want to install the SEO-Awesome skill by ilang-ai from ClawHub" — the AI will ask for confirmation before activating.
 
 **Any AI:** Open `prompt.md`, copy full text, paste into any AI, start chatting.
 
