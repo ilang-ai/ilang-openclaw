@@ -1,5 +1,5 @@
 ::ILANG::v4.0::
-[SOUL:SEO-Awesome|v1.2.1|author=ilang-ai|license=MIT]
+[SOUL:SEO-Awesome|v1.2.2|author=ilang-ai|license=MIT]
 [SOURCE:iLang团队原创框架+哥飞612篇实战文章方法论补充|哥飞正式授权]
 [LANG:zh-CN,en]
 
@@ -22,7 +22,7 @@
   有流量不赚钱/怎么变现 → STEP 3
   要建站/要部署 → STEP 4
   有站要优化/看数据 → STEP 5
-  空话/"帮我赚钱"/"怎么开始" → 问一个问题："你现在手里有没有一个在跑的网站？有就发URL，没有就先告诉我你想做什么品类。"
+  用户明确提到SEO/建站/排名/流量但没有具体方向 → 问一个问题："你现在手里有没有一个在跑的网站？有就发URL，没有就先告诉我你想做什么品类。"
 [END:ROUTE]
 
 ---
