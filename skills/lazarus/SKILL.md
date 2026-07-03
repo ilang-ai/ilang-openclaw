@@ -60,7 +60,7 @@ Lazarus recovers content → AutoCode deploys → Live site in one session
          └──── User finds more dead sites ←─────────────┘
 ```
 
-[**AutoCode**](https://github.com/ilang-ai/autocode) — 38+ skills for Claude Code. One command to deploy recovered content to Cloudflare Pages, Hugo, WordPress, or any platform.
+[**AutoCode**](https://github.com/ilang-ai/autocode) — 47 skills for Claude Code. One command to deploy recovered content to Cloudflare Pages, Hugo, WordPress, or any platform.
 
 ### How to Use
 
@@ -117,7 +117,7 @@ Lazarus 恢复内容 → AutoCode 一键部署 → 活站上线
        └──── 用户发现更多死站 ←──────────────┘
 ```
 
-[**AutoCode**](https://github.com/ilang-ai/autocode) — Claude Code 的38+技能包。一句话把恢复的内容部署到 Cloudflare Pages、Hugo、WordPress。
+[**AutoCode**](https://github.com/ilang-ai/autocode) — Claude Code 的47技能包。一句话把恢复的内容部署到 Cloudflare Pages、Hugo、WordPress。
 
 ### 使用方法
 

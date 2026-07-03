@@ -165,7 +165,7 @@ ilang.cn/md（纯前端排版，一键复制到微信编辑器）
 | WeChat-Awesome（本技能）| 素材 → 爆文结构 + MD + 封面提示词 |
 | DeAI | 去AI味编辑（同一会话内处理）|
 | [ilang.cn/md](https://ilang.cn/md) | MD → 微信格式 → 一键复制（纯前端）|
-| [AutoCode](https://github.com/ilang-ai/autocode) | Claude Code 38+技能包 |
+| [AutoCode](https://github.com/ilang-ai/autocode) | Claude Code 47技能包 |
 | [I-Lang协议](https://ilang.ai) | AI通信协议 |
 
 ---
