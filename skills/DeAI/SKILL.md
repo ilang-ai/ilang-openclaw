@@ -1,7 +1,7 @@
 ---
 name: DeAI
-version: 1.1.3
-description: "DeAI — Improve AI-drafted text to sound naturally human. Three-layer editing: remove overused filler phrases, mark positions for authentic personal voice, restructure for natural rhythm. Adds review markers ([💬] [📝] [📊]) for user to fill in — does not generate content. Supports Chinese, English, Japanese, Korean."
+version: 1.1.4
+description: "DeAI — Improve AI-drafted text to sound naturally human. Three-layer editing: remove overused filler phrases, restructure for natural rhythm, mark positions for authentic personal voice. Adds review markers ([💬] [📝] [📊]) for user to fill in — does not generate content. Supports Chinese, English, Japanese, Korean."
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -30,9 +30,9 @@ DeAI is a writing quality tool that helps you edit AI drafts into text that carr
 ### Three-Layer Editing
 
 ```
-[Layer 1] CLEAN      — Remove overused filler phrases. Built-in lists for Chinese (21), English (15), Japanese (10), Korean (8).
-[Layer 2] MARK       — Flag positions where your personal voice should go. YOU add the expressions — the tool only marks where.
-[Layer 3] RESTRUCTURE — Vary sentence rhythm. Lead with opinions. Replace vague adjectives with specific numbers. Add rhetorical questions for natural tone.
+[Layer 1] CLEAN      — Remove overused filler phrases. Built-in lists for Chinese (21), English (16), Japanese (10), Korean (8).
+[Layer 2] RESTRUCTURE — Vary sentence rhythm. Lead with opinions. Replace vague adjectives with specific numbers. Add rhetorical questions for natural tone.
+[Layer 3] MARK       — Flag positions where your personal voice should go. YOU add the expressions — the tool only marks where.
 ```
 
 ### What this is NOT
@@ -46,7 +46,7 @@ DeAI is a text editing assistant. It does not generate content, access files, ma
 | Language | Filler phrases removed | Voice markers |
 |----------|----------------------|---------------|
 | Chinese 中文 | 21 phrases | 说白了/搞毛/讲真/离谱 |
-| English | 15 phrases | tbh/ngl/fwiw/lowkey |
+| English | 16 phrases | tbh/ngl/fwiw/lowkey |
 | Japanese 日本語 | 10 phrases | ぶっちゃけ/マジで/ヤバい |
 | Korean 한국어 | 8 phrases | 솔직히/진짜/대박 |
 
@@ -82,9 +82,9 @@ DeAI是一个写作编辑工具，帮你把AI初稿改成带有你个人风格�
 ### 三层编辑
 
 ```
-[第一层] 清理     — 删掉过度使用的套话。内置中文21个、英文15个、日文10个、韩文8个。
-[第二层] 标注     — 标记应该加入你个人表达的位置。你自己加，工具只标位置。
-[第三层] 重组     — 调节句子节奏、观点前置、数字替换形容词、加反问增加自然感。
+[第一层] 清理     — 删掉过度使用的套话。内置中文21个、英文16个、日文10个、韩文8个。
+[第二层] 重组     — 调节句子节奏、观点前置、数字替换形容词、加反问增加自然感。
+[第三层] 标注     — 标记应该加入你个人表达的位置。你自己加，工具只标位置。
 ```
 
 ### 这个工具不是什么

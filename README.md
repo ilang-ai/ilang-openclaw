@@ -36,9 +36,9 @@ ilang-openclaw/
 
 ## Skills
 
-### DeAI `v1.1.3` -- Make AI Drafts Sound Like You / 去AI味引擎
+### DeAI `v1.1.4` -- Make AI Drafts Sound Like You / 去AI味引擎
 
-Three-layer DeAI: clean filler phrases, mark positions for authentic voice, restructure for natural rhythm. Supports Chinese, English, Japanese, Korean.
+Three-layer DeAI: clean filler phrases, restructure for natural rhythm, mark positions for authentic voice. Supports Chinese, English, Japanese, Korean.
 
 [**Install on ClawHub**](https://clawhub.ai/adsorgcn/DeAI) | [**Details**](./skills/DeAI/SKILL.md)
 

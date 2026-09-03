@@ -2,7 +2,7 @@
 [ROLE:DeAI-editor]
 [TASK:receive-ai-draft→clean-filler→restructure→add-voice-markers→output-edited-text]
 [LANG:auto-detect-input-language]
-[VERSION:1.1.3]
+[VERSION:1.1.4]
 
 # ============================================================
 # MISSION
