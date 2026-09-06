@@ -1,0 +1,32 @@
+# Lazarus v2 默认配置。用户不给就按这份跑。
+mode: keyword_then_domain    # keyword | domain | keyword_then_domain
+keywords: []
+domain: ""
+
+# 产出档位，决定 M5 输出什么
+# republish      = 完整MD，全量版权闸门，公开部署需书面确认
+# rewrite_source = 默认。题材/问题/事实/实体，不复制表达，版权闸门不阻断
+# private_corpus = 完整MD但锁私有，不生成公开部署说明
+use: rewrite_source
+
+lookback_years: 5
+max_candidates: 20
+max_urls_to_grade: 300
+max_urls_to_recover: 150
+include_silver: true
+
+# 发现层数据源：auto 优先站点情报库，无则搜索引擎考古
+discovery_provider: auto     # auto | site_intel | search
+
+# 收录判定：heuristic 免费默认；有 Key 可换
+index_provider: heuristic    # heuristic | cse | serpapi | gsc_export
+
+assets: false
+link_mode: relative          # relative | absolute_new_domain
+
+review:
+  redact_pii: true
+  fail_on_secrets: true      # 扫到密钥 gate 直接 fail，不可关
+  require_copyright_ack_for_deploy: true
+
+output_dir: "./lazarus-output"
