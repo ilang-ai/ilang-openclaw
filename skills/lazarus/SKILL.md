@@ -1,7 +1,7 @@
 ---
 name: lazarus
 description: "Lazarus v2 — Bring dead websites back to life. Keyword-in: hunt candidate dead domains with evidence. Domain-in: recover only pages with heuristic indexing evidence, pass a hard review gate, ship a machine-readable Recovery Bundle. 捡尸复活死站：热词挖坟、启发式收录分层、强制审查闸门、标准化产物包。默认改写素材不复制表达。"
-version: 2.0.0
+version: 2.0.1
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
