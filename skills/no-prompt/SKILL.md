@@ -1,7 +1,7 @@
 ---
 name: no-prompt
 description: "Stop learning prompt engineering. Tell AI what you want in plain language — AI writes a structured instruction for you in I-Lang. Copy it to other AIs as a well-structured starting point. Zero prompt skills needed. Generates text instructions only, no code, no install, no credentials. Results may vary by model."
-version: 1.0.2
+version: 1.0.3
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -38,9 +38,9 @@ AI is better at writing prompts than you are. Let it.
 
 1. **Zero learning curve** — Say what you want in your own words. AI does the rest.
 2. **AI-to-AI communication** — AI A writes the instruction, AI B executes it. Perfect handoff.
-3. **Cross-platform** — Instruction from ChatGPT works in Claude, Gemini, DeepSeek, Kimi, 豆包, 元宝.
+3. **Cross-platform** — I-Lang has been tested across ChatGPT, Claude, Gemini, DeepSeek, Kimi, Qwen and GLM (results: ilang.ai/benchmark/, May 2026).
 4. **Better than hand-written prompts** — Structured I-Lang instructions are more precise than human prose.
-5. **40-65% fewer tokens** — Compressed instructions cost less to execute.
+5. **Shorter instructions** — One structured line instead of a paragraph.
 
 ## How to Use
 
@@ -56,7 +56,7 @@ Say: "I want to summarize a long article into 5 key takeaways in professional to
 
 AI returns:
 ```
-[SUM|key=takeaways,cnt=5,ton=pro]=>[OUT]
+[SHRT|whr=takeaways,len=5,ton=pro]=>[OUT]
 ```
 
 Copy this. Use it anytime you need the same task. Works across major AIs.
@@ -67,7 +67,7 @@ Tell AI A: "Write me an I-Lang instruction that makes another AI compare two bus
 
 AI A returns:
 ```
-[CMP|key=strategy]=>[EVAL|ton=pro]=>[RANK]=>[OUT|fmt=md]
+[DIFF|whr=strategy]=>[EVAL|ton=pro]=>[RANK]=>[OUT|fmt=md]
 ```
 
 Paste into AI B. AI B follows the structured format. Two AIs, one language.
@@ -76,11 +76,11 @@ Paste into AI B. AI B follows the structured format. Two AIs, one language.
 
 Ask AI to generate I-Lang instructions for tasks you do repeatedly. Save them. Reuse forever.
 
-- Weekly report: `[SUM|sty=executive,ton=formal,fmt=md]=>[OUT]`
-- Code review: `[EVAL|key=bugs,quality]=>[SUM|sty=bullets]=>[OUT]`
-- Email draft: `[DRAFT|ton=pro,len=short]=>[OUT]`
-- Meeting notes: `[SUM|key=decisions,action_items,sty=bullets]=>[OUT]`
-- Translation: `[TRANSLATE|lang=zh,ton=natural]=>[FMT|fmt=md]=>[OUT]`
+- Weekly report: `[SHRT|sty=executive,ton=formal,fmt=md]=>[OUT]`
+- Code review: `[EVAL|whr="bugs,quality"]=>[SHRT|sty=bullets]=>[OUT]`
+- Email draft: `[DRFT|ton=pro,len=short]=>[OUT]`
+- Meeting notes: `[SHRT|whr="decisions,action_items",sty=bullets]=>[OUT]`
+- Translation: `[XLAT|lng=zh,ton=natural]=>[FMT|fmt=md]=>[OUT]`
 
 ## Comparison
 
@@ -91,7 +91,7 @@ Ask AI to generate I-Lang instructions for tasks you do repeatedly. Save them. R
 | Install required | No | Often yes | No |
 | Remembering techniques | 58+ techniques | Tool-dependent | AI remembers for you |
 | Cross-platform | Depends | Usually single | Major AIs |
-| Token efficiency | Varies | Standard | 40-65% savings |
+| Token efficiency | Varies | Standard | Shorter structured instructions |
 | Who writes the prompt | You | Tool assists you | AI writes it for you |
 
 ## Before & After
@@ -101,14 +101,14 @@ Ask AI to generate I-Lang instructions for tasks you do repeatedly. Save them. R
 
 **After** (AI-generated I-Lang):
 ```
-[CMP|key=cost,timeline,risk,team,ROI]=>[EVAL|ton=pro]=>[RANK]=>[OUT|fmt=md]
+[DIFF|whr="cost,timeline,risk,team,ROI"]=>[EVAL|ton=pro]=>[RANK]=>[OUT|fmt=md]
 ```
 
-85% fewer tokens. More precise. Works across major AIs.
+More precise. I-Lang has been tested across ChatGPT, Claude, Gemini, DeepSeek, Kimi, Qwen and GLM.
 
 ## Tested Platforms
 
-ChatGPT ✅ · Claude ✅ · Gemini ✅ · DeepSeek ✅ · Kimi ✅ · 豆包 ✅ · 元宝 ✅
+I-Lang has been tested across ChatGPT, Claude, Gemini, DeepSeek, Kimi, Qwen and GLM. Results by model are published on ilang.ai/benchmark/, tests conducted May 2026.
 
 ## Links
 

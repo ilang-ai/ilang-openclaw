@@ -1,7 +1,7 @@
 ---
 name: everything-is-ok
-description: "无所不能 — Universal prompt compression protocol. Translate natural language into compressed I-Lang syntax (save 40-65% tokens). Text-to-text translator only — does not access files, URLs, or external resources. Works with ChatGPT, Claude, Gemini, DeepSeek, Kimi. Instruction-only, no code, no credentials."
-version: 1.0.4
+description: "无所不能 — Universal prompt compression protocol. Translate natural language into compressed I-Lang syntax. Text-to-text translator only — does not access files, URLs, or external resources. I-Lang has been tested across ChatGPT, Claude, Gemini, DeepSeek, Kimi, Qwen and GLM. Instruction-only, no code, no credentials."
+version: 1.0.5
 author: ilang-ai
 homepage: https://ilang.ai
 tags:
@@ -19,14 +19,14 @@ tags:
 
 # Everything is OK（无所不能）
 
-Universal prompt compression protocol. Translate any natural language prompt into compressed I-Lang syntax. Save 40-65% tokens, same meaning.
+Universal prompt compression protocol. Translate any natural language prompt into compressed I-Lang syntax.
 
 **This skill is a text-to-text translator only.** It does not access files, fetch URLs, or execute commands. It only converts your text into compressed syntax.
 
 ## What You Get
 
-1. **Save 40-65% tokens** — Compress long prompts into structured instructions. Same meaning, lower cost.
-2. **Cross-platform** — Compressed output works on ChatGPT, Claude, Gemini, DeepSeek, Kimi, 豆包, 元宝.
+1. **Structured prompts** — Compress long prompts into structured instructions.
+2. **Cross-platform** — I-Lang has been tested across ChatGPT, Claude, Gemini, DeepSeek, Kimi, Qwen and GLM (results: ilang.ai/benchmark/, May 2026).
 3. **Complete answers** — AI provides full details with clear structure.
 4. **Privacy friendly** — Compressed text is shorter, sending less data.
 
@@ -44,38 +44,33 @@ Universal prompt compression protocol. Translate any natural language prompt int
 After pasting, try:
 
 - "Compress this: Summarize the key points in 3 professional bullet points"
-- AI returns: `[SUM|sty=bullets,cnt=3,ton=pro]=>[OUT]`
-- Shorter, same meaning.
+- AI returns: `[SHRT|sty=bullets,len=3,ton=pro]=>[OUT]`
 
 ## Before & After
 
-**Before** (12 words):
+**Before**:
 
 > Rewrite this paragraph in a more casual and friendly tone
 
-**After** (4 words):
+**After**:
 
 ```
-[REWRITE|ton=casual]=>[OUT]
+[REWR|ton=casual]=>[OUT]
 ```
 
-67% fewer tokens. Same result.
-
-**Before** (10 words):
+**Before**:
 
 > Compare these two options and show me the differences
 
-**After** (4 words):
+**After**:
 
 ```
-[CMP]=>[DIFF]=>[OUT|fmt=md]
+[DIFF]=>[OUT|fmt=md]
 ```
-
-60% fewer tokens. Same result.
 
 ## Tested Platforms
 
-ChatGPT ✅ · Claude ✅ · Gemini ✅ · DeepSeek ✅ · Kimi ✅ · 豆包 ✅ · 元宝 ✅
+I-Lang has been tested across ChatGPT, Claude, Gemini, DeepSeek, Kimi, Qwen and GLM. Results by model are published on ilang.ai/benchmark/, tests conducted May 2026.
 
 ## Links
 

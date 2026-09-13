@@ -1,7 +1,7 @@
 {
   "name": "ilang-compress",
   "version": "2.2",
-  "description": "Compress natural language prompts into I-Lang — AI-native structured instructions. 40-65% token savings.",
+  "description": "Compress natural language prompts into I-Lang — AI-native structured instructions.",
   "author": "ilang-ai",
   "homepage": "https://ilang.ai",
   "repository": "https://github.com/ilang-ai/ilang-openclaw",

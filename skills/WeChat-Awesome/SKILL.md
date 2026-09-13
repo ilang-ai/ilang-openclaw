@@ -1,6 +1,6 @@
 ---
 name: WeChat-Awesome
-version: 1.1.4
+version: 1.1.5
 description: "微信公众号写作助手。200+篇实战验证的爆文结构引擎。你投喂素材，它输出MD文件+封面图提示词+自查报告。内置17条写作基因、品牌简称、平台合规、10项自查清单。不接受无素材请求，不是内容生成器。"
 author: ilang-ai
 homepage: https://ilang.ai
@@ -165,7 +165,7 @@ ilang.cn/md（纯前端排版，一键复制到微信编辑器）
 | WeChat-Awesome（本技能）| 素材 → 爆文结构 + MD + 封面提示词 |
 | DeAI | 去AI味编辑（同一会话内处理）|
 | [ilang.cn/md](https://ilang.cn/md) | MD → 微信格式 → 一键复制（纯前端）|
-| [AutoCode](https://github.com/ilang-ai/autocode) | Claude Code 47技能包 |
+| [AutoCode](https://github.com/ilang-ai/autocode) | Claude Code 48技能包 |
 | [I-Lang协议](https://ilang.ai) | AI通信协议 |
 
 ---

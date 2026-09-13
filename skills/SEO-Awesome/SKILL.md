@@ -2,7 +2,7 @@
 slug: ilang-seo-awesome
 name: SEO-Awesome
 displayName: SEO-Awesome
-version: 1.2.5
+version: 1.2.6
 summary: First-party Google API data-driven pSEO automation framework. From keyword research to bulk page generation to auto-review.
 author: ilang-ai
 license: MIT
@@ -68,7 +68,7 @@ Build an SEO automation system: Google APIs for first-party data → LLM content
 | Niche research | Niche-Awesome | 6-step BRD research, find what to build | [ClawHub](https://clawhub.ai/adsorgcn/niche-awesome) |
 | Dead site revival | Lazarus | Recover high-DA dead sites, generate original content from expired pages | [ClawHub](https://clawhub.ai/adsorgcn/lazarus) |
 | Original content | DeAI | Remove AI fingerprints, three-layer editing | [ClawHub](https://clawhub.ai/adsorgcn/deai) |
-| Prompt compression | iLang-Compress | 88 verbs + 29 modifiers, extreme compression | [ClawHub](https://clawhub.ai/adsorgcn/ilang-compress) |
+| Prompt compression | I-Lang Compress | 88 verbs + 29 core modifiers, prompt compression | [ClawHub](https://clawhub.ai/adsorgcn/ilang-compress) |
 
 ---
 
@@ -92,7 +92,7 @@ Special thanks to [Gefei (哥飞)](https://seo.web.cafe/) for officially authori
 
 | Resource | Link |
 |----------|------|
-| iLang Protocol | [ilang.ai](https://ilang.ai) |
+| I-Lang Protocol | [ilang.ai](https://ilang.ai) |
 | Skill Marketplace | [clawhub.ai](https://clawhub.ai) |
 | Gefei SEO | [seo.web.cafe](https://seo.web.cafe/) |
 | GitHub | [ilang-ai/ilang-openclaw](https://github.com/ilang-ai/ilang-openclaw) |
