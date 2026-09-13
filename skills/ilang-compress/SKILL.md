@@ -1,6 +1,6 @@
 ---
 name: ilang-compress
-version: 2.3.3
+version: 2.3.4
 description: "Compress natural language prompts into I-Lang — AI-native structured instructions. Output is text notation only — review before passing to execution agents."
 homepage: https://ilang.ai
 metadata:
@@ -77,7 +77,7 @@ src, dst, path, fmt, lng, sty, ton, len, lim, off, top, bot, srt, grp, whr, mch,
 
 ## Author
 
-Built by ilang-ai from China. I-Lang is open source under MIT license.
+Built by iLang Inc. I-Lang is open source under MIT license.
 
 I-Lang v4.0
 
