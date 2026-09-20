@@ -1,0 +1,38 @@
+{
+  "title": "I-Lang skills and plugins for OpenClaw, Hermes and other AI agents",
+  "description": "<p>Ten instruction-only skills and two OpenClaw plugins written in the I-Lang protocol. The skills are plain text with no dependencies and work in any agent that loads a SKILL.md: text de-AI rewriting in four languages, Chinese public-account writing, dead-site recovery, prompt rewriting and compression, product research and SEO automation for cross-border sellers, and a US class-action settlement tracker. The plugins register tools and hooks inside the OpenClaw runtime.</p>",
+  "version": "2.3.2",
+  "upload_type": "software",
+  "license": "MIT",
+  "access_right": "open",
+  "creators": [
+    {
+      "name": "Zhu, Long Quan",
+      "orcid": "0009-0004-4540-8082",
+      "affiliation": "iLang Inc."
+    }
+  ],
+  "keywords": [
+    "I-Lang",
+    "agent skills",
+    "OpenClaw",
+    "Hermes",
+    "plugins",
+    "AI agents",
+    "SKILL.md"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/ilang-ai/ilang-openclaw",
+      "relation": "isSupplementTo",
+      "resource_type": "software",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://ilang.ai/spec/",
+      "relation": "isDocumentedBy",
+      "resource_type": "publication-technicalnote",
+      "scheme": "url"
+    }
+  ]
+}
