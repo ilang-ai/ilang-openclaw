@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use ilang-openclaw, please cite it as below."
+title: "I-Lang skills and plugins for OpenClaw, Hermes and other AI agents"
+abstract: >-
+  Ten instruction-only skills and two OpenClaw plugins written in the I-Lang
+  protocol. The skills are plain text with no dependencies and work in any
+  agent that loads a SKILL.md: text de-AI rewriting in four languages, Chinese
+  public-account writing, dead-site recovery, prompt rewriting and
+  compression, product research and SEO automation for cross-border sellers,
+  and a US class-action settlement tracker. The plugins register tools and
+  hooks inside the OpenClaw runtime.
+type: software
+authors:
+  - given-names: "Long Quan"
+    family-names: "Zhu"
+    orcid: "https://orcid.org/0009-0004-4540-8082"
+    affiliation: "iLang Inc."
+repository-code: "https://github.com/ilang-ai/ilang-openclaw"
+url: "https://github.com/ilang-ai/ilang-openclaw"
+license: MIT
+version: "2.3.2"
+date-released: "2026-09-21"
+keywords:
+  - I-Lang
+  - agent skills
+  - OpenClaw
+  - Hermes
+  - plugins
+  - AI agents
+  - SKILL.md
