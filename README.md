@@ -4,6 +4,7 @@
 [![Skills](https://img.shields.io/badge/Skills-10%20Published-blue)](#skills)
 [![Plugins](https://img.shields.io/badge/Plugins-2%20Published-blue)](#plugins)
 [![Protocol](https://img.shields.io/badge/I--Lang-v4.0-purple)](https://ilang.ai)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22865125.svg)](https://doi.org/10.5281/zenodo.22865125)
 
 > **Skills** = instruction-only text, paste into any AI, zero dependencies.
 >
@@ -169,6 +170,10 @@ Push to `main` triggers auto-publish:
 | ClawHub Publisher | [clawhub.ai/adsorgcn](https://clawhub.ai/adsorgcn) |
 
 ---
+
+## Citation
+
+[CITATION.cff](CITATION.cff); Zenodo archives each release. Concept DOI [10.5281/zenodo.22865125](https://doi.org/10.5281/zenodo.22865125) (all versions).
 
 ## License
 
