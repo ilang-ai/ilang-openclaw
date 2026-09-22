@@ -31,7 +31,7 @@ openclaw plugins install clawhub:@adsorgcn/freemoney-plugin
 
 ## 数据来源
 
-• 数据接口：api.ilang.ai（I-Lang Research维护，每日更新）
+• 数据接口：api.ilang.ai（iLang Research维护，每日更新）
 • 原始数据：OpenClassActions + TopClassActions + ClaimDepot + 各国官方公告
 • 覆盖国家：美国、加拿大、英国、澳洲
 
@@ -60,7 +60,7 @@ openclaw plugins install clawhub:@adsorgcn/freemoney-plugin
 | [freemoney skill](https://clawhub.ai/adsorgcn/freemoney) | 技能版（粘贴即用） |
 | [WeChat-Awesome](https://clawhub.ai/adsorgcn/WeChat-Awesome) | 公众号写作助手 |
 | [DeAI](https://clawhub.ai/adsorgcn/DeAI) | 去AI味编辑器 |
-| [I-Lang协议](https://ilang.ai) | AI通信协议 |
+| [iLang协议](https://ilang.ai) | AI通信协议 |
 
 ## 许可
 

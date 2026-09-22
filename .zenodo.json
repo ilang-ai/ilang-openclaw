@@ -1,6 +1,6 @@
 {
-  "title": "I-Lang skills and plugins for OpenClaw, Hermes and other AI agents",
-  "description": "<p>Ten instruction-only skills and two OpenClaw plugins written in the I-Lang protocol. The skills are plain text with no dependencies and work in any agent that loads a SKILL.md: text de-AI rewriting in four languages, Chinese public-account writing, dead-site recovery, prompt rewriting and compression, product research and SEO automation for cross-border sellers, and a US class-action settlement tracker. The plugins register tools and hooks inside the OpenClaw runtime.</p>",
+  "title": "iLang skills and plugins for OpenClaw, Hermes and other AI agents",
+  "description": "<p>Ten instruction-only skills and two OpenClaw plugins written in the iLang protocol. The skills are plain text with no dependencies and work in any agent that loads a SKILL.md: text de-AI rewriting in four languages, Chinese public-account writing, dead-site recovery, prompt rewriting and compression, product research and SEO automation for cross-border sellers, and a US class-action settlement tracker. The plugins register tools and hooks inside the OpenClaw runtime.</p>",
   "version": "2.3.2",
   "upload_type": "software",
   "license": "MIT",
@@ -13,7 +13,7 @@
     }
   ],
   "keywords": [
-    "I-Lang",
+    "iLang",
     "agent skills",
     "OpenClaw",
     "Hermes",

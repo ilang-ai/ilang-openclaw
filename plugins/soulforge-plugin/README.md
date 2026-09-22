@@ -72,7 +72,7 @@ Minimum 500 characters to distill. 5000+ characters recommended.
 
 ## Output format
 
-I-Lang GENE format, written to the agent workspace SOUL.md:
+iLang GENE format, written to the agent workspace SOUL.md:
 
 ```
 ::ILANG::v4.0

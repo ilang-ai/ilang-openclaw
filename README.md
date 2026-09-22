@@ -1,9 +1,9 @@
-# I-Lang OpenClaw — Skills + Plugins
+# iLang OpenClaw — Skills + Plugins
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Skills](https://img.shields.io/badge/Skills-10%20Published-blue)](#skills)
 [![Plugins](https://img.shields.io/badge/Plugins-2%20Published-blue)](#plugins)
-[![Protocol](https://img.shields.io/badge/I--Lang-v4.0-purple)](https://ilang.ai)
+[![Protocol](https://img.shields.io/badge/iLang-v4.0-purple)](https://ilang.ai)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22865125.svg)](https://doi.org/10.5281/zenodo.22865125)
 
 > **Skills** = instruction-only text, paste into any AI, zero dependencies.
@@ -24,7 +24,7 @@ ilang-openclaw/
 │   ├── everything-is-ok/← Universal prompt compression
 │   ├── no-prompt/       ← AI writes prompts for you
 │   ├── less-token/      ← Compress prompts, save tokens
-│   ├── ilang-compress/  ← Original I-Lang compression engine
+│   ├── ilang-compress/  ← Original iLang compression engine
 │   ├── Niche-Awesome/  ← 出海选品调研：不知道做什么？3小时帮你找到方向
 │   ├── SEO-Awesome/    ← 出海SEO自动化：Google API一手数据+PSEO批量页面+GA4自动复盘
 ├── plugins/             ← Code plugins for OpenClaw runtime
@@ -63,7 +63,7 @@ Complete 6-step niche product research: from "I don't know what to build" to a f
 
 ### WeChat-Awesome `v1.0.0` -- 微信公众号写作助手
 
-素材→爆文结构重组→MD文件→封面图I-Lang提示词。内置品牌脱敏、平台合规、自查清单。纯中文。
+素材→爆文结构重组→MD文件→封面图iLang提示词。内置品牌脱敏、平台合规、自查清单。纯中文。
 
 [**Install on ClawHub**](https://clawhub.ai/adsorgcn/WeChat-Awesome) | [**Details**](./skills/WeChat-Awesome/SKILL.md)
 
@@ -132,7 +132,7 @@ openclaw plugins install clawhub:@adsorgcn/freemoney-plugin
 输入人名或语料，蒸馏写作风格，自动覆盖soul.md：
 
 - **2 tools**: distill_search（搜索模式）, distill_corpus（语料模式）
-- **输出**: I-Lang GENE格式soul.md，自动写入~/.openclaw/soul.md
+- **输出**: iLang GENE格式soul.md，自动写入~/.openclaw/soul.md
 - **用户体验**: "蒸馏XXX" → "你的写作风格已经跟XXX一致，随时可以再次替换为其他风格。"
 
 ```bash
@@ -163,7 +163,7 @@ Push to `main` triggers auto-publish:
 
 | Resource | Link |
 |----------|------|
-| I-Lang Protocol | [ilang.ai](https://ilang.ai) |
+| iLang Protocol | [ilang.ai](https://ilang.ai) |
 | AutoCode | [ilang-ai/autocode](https://github.com/ilang-ai/autocode) |
 | Imprint | [ilang-ai/Imprint](https://github.com/ilang-ai/Imprint) |
 | 跨境风向标 | 微信公众号 / 免费知识星球，每天发布出海新动向 |
